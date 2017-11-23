@@ -28,5 +28,7 @@ To create a new C++ library:
 
 ## Credits
 
-This generator is heavily inspired from https://github.com/gpichot/generator-cpp-suite.
-CONTRIBUTING from https://gist.github.com/PurpleBooth/b24679402957c63ec426.
+Thanks to:
+
+- Yeoman generator: https://github.com/gpichot/generator-cpp-suite
+- CONTRIBUTING: https://gist.github.com/PurpleBooth/b24679402957c63ec426
