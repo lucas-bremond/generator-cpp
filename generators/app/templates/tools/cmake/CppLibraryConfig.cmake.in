@@ -1,0 +1,34 @@
+########################################################################################################################################################
+###
+### Copyright (C) <%= year %> by <%= companyName %>
+###
+### This file is part of the <%= projectName %> project.
+###
+########################################################################################################################################################
+
+### @file                       <%= projectPath %>/tools/cmake/<%= projectPath %>Config.cmake.in
+### @author                     <%= authorName %> <<%= authorEmail %>>
+### @date                       <%= date %>
+
+########################################################################################################################################################
+
+SET (CPP_PROJECT_TEMPLATE_ROOT_DIR ${CPP_PROJECT_TEMPLATE_ROOT_DIR} @CMAKE_INSTALL_PREFIX@)
+
+FIND_PATH (CPP_PROJECT_TEMPLATE_INCLUDE_DIR "<%= projectPath %>/Utilities/Version.hpp" PATHS ${CPP_PROJECT_TEMPLATE_ROOT_DIR} PATH_SUFFIXES "include" NO_DEFAULT_PATH)
+FIND_LIBRARY (CPP_PROJECT_TEMPLATE_LIBRARY NAMES "lib<%= projectPackage %>.so" PATHS ${CPP_PROJECT_TEMPLATE_ROOT_DIR} PATH_SUFFIXES "lib" NO_DEFAULT_PATH)
+
+# MESSAGE (STATUS "CPP_PROJECT_TEMPLATE_ROOT_DIR = ${CPP_PROJECT_TEMPLATE_ROOT_DIR}")
+# MESSAGE (STATUS "CPP_PROJECT_TEMPLATE_INCLUDE_DIR = ${CPP_PROJECT_TEMPLATE_INCLUDE_DIR}")
+# MESSAGE (STATUS "CPP_PROJECT_TEMPLATE_LIBRARY = ${CPP_PROJECT_TEMPLATE_LIBRARY}")
+# MESSAGE (STATUS "CPP_PROJECT_TEMPLATE_FIND_VERSION = ${CPP_PROJECT_TEMPLATE_FIND_VERSION}")
+
+IF (CPP_PROJECT_TEMPLATE_INCLUDE_DIR)
+
+	SET (CPP_PROJECT_TEMPLATE_INCLUDE_DIRS ${CPP_PROJECT_TEMPLATE_INCLUDE_DIR} ${CPP_PROJECT_TEMPLATE_INCLUDE_DIR}/<%= projectPath %>)
+	SET (CPP_PROJECT_TEMPLATE_LIBRARIES ${CPP_PROJECT_TEMPLATE_LIBRARY})
+
+	SET (CPP_PROJECT_TEMPLATE_FOUND TRUE)
+
+ENDIF ()
+
+########################################################################################################################################################

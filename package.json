@@ -13,7 +13,8 @@
         "url": "git://github.com/lucas-bremond/generator-cpp-library.git"
     },
     "dependencies": {
-        "yeoman-generator": "^1.0.0"
+        "yeoman-generator": "^1.0.0",
+        "moment": "2.19.2"
     },
     "files": [
         "generators"
