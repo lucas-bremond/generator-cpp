@@ -6,11 +6,11 @@ A C++ library generator for [Yeoman](http://yeoman.io/).
 
 The following tools are required:
 
-### npm
+**npm**
 
-https://changelog.com/posts/install-node-js-with-homebrew-on-os-x
+https://www.npmjs.com/
 
-### yeoman
+**Yeoman**
 
     npm install -g yo
 
