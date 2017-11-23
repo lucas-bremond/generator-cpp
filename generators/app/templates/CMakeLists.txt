@@ -57,7 +57,7 @@ CMAKE_POLICY (SET "CMP0048" NEW)
 
 INCLUDE ("GetGitRevisionDescription" OPTIONAL)
 
-IF (COMMAND "GET_GIT_HEAD_REVISION" AND COMMAND "GIT_DESCRIBE")
+IF (EXISTS "${PROJECT_SOURCE_DIR}/.git/packed-refs" AND COMMAND "GET_GIT_HEAD_REVISION" AND COMMAND "GIT_DESCRIBE")
 
     # Versioning using current git branch tag
 
@@ -230,14 +230,14 @@ ENDFOREACH ()
 
 ## Dependencies
 
-FIND_PACKAGE (OpenMP)
+# FIND_PACKAGE (OpenMP)
 
-IF (OPENMP_FOUND)
-    SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-ELSE ()
-    MESSAGE (SEND_ERROR "[OpenMP] not found.")
-ENDIF ()
+# IF (OPENMP_FOUND)
+#     SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+#     SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+# ELSE ()
+#     MESSAGE (SEND_ERROR "[OpenMP] not found.")
+# ENDIF ()
 
 ########################################################################################################################################################
 

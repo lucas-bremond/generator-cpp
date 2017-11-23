@@ -37,25 +37,25 @@ module.exports = class extends Generator
           type: 'input',
           name: 'projectName',
           message: 'Project name:',
-          default: 'My Project'
+          default: 'C++ Library'
         },
         {
           type: 'input',
           name: 'projectDescription',
           message: 'Project description:',
-          default: 'A pretty cool project.'
+          default: 'A pretty cool C++ library.'
         },
         {
           type: 'input',
           name: 'projectPath',
           message: 'Project path:',
-          default: 'MyProject'
+          default: 'CppLibrary'
         },
         {
           type: 'input',
           name: 'projectPackage',
           message: 'Project package name:',
-          default: 'my-project'
+          default: 'cpp-library'
         },
         {
           type: 'input',
@@ -103,7 +103,7 @@ module.exports = class extends Generator
           type: 'confirm',
           name: 'buildStaticLib',
           message: 'Would you like to build a static library?',
-          default: true
+          default: false
         },
         {
           type: 'confirm',
@@ -151,8 +151,21 @@ module.exports = class extends Generator
     this._setupGit() ;
     this._setupBuild() ;
     this._setupSrc() ;
-    this._setupTest() ;
-    this._setupDocumentation() ;
+
+    if (this.answers['buildUtility'])
+    {
+      this._setupUtility() ;
+    }
+
+    if (this.answers['buildTest'])
+    {
+      this._setupTest() ;
+    }
+
+    if (this.answers['buildDocumentation'])
+    {
+      this._setupDocumentation() ;
+    }
 
   }
   
@@ -409,89 +422,124 @@ module.exports = class extends Generator
 
   }
 
+  _setupUtility ()
+  {
+
+    this.fs.copyTpl
+    (
+      this.templatePath('share/MyUtility/src/MyUtility.cxx'),
+      this.destinationPath('share/MyUtility/src/MyUtility.cxx'),
+      {
+        year: this.year,
+        date: this.date,
+        projectName: this.answers['projectName'],
+        projectPath: this.answers['projectPath'],
+        authorName: this.answers['authorName'],
+        authorEmail: this.answers['authorEmail'],
+        companyName: this.answers['companyName']
+      }
+    ) ;
+
+    this.fs.copyTpl
+    (
+      this.templatePath('share/MyUtility/CMakeLists.txt'),
+      this.destinationPath('share/MyUtility/CMakeLists.txt'),
+      {
+        year: this.year,
+        date: this.date,
+        projectName: this.answers['projectName'],
+        projectDescription: this.answers['projectDescription'],
+        projectPath: this.answers['projectPath'],
+        projectPackage: this.answers['projectPackage'],
+        projectLicense: this.answers['projectLicense'],
+        authorName: this.answers['authorName'],
+        authorEmail: this.answers['authorEmail'],
+        companyName: this.answers['companyName'],
+        companyId: this.answers['companyId'],
+        companyWebsite: this.answers['companyWebsite'],
+        buildSharedLib: this.answers['buildSharedLib'],
+        buildStaticLib: this.answers['buildStaticLib'],
+        buildUtility: this.answers['buildUtility'],
+        buildTest: this.answers['buildTest'],
+        buildDocumentation: this.answers['buildDocumentation']
+      }
+    ) ;
+
+  }
+
   _setupTest ()
   {
 
-    if (this.answers['buildTest'])
-    {
+    this.fs.copyTpl
+    (
+      this.templatePath('test/Global.test.hpp'),
+      this.destinationPath('test/Global.test.hpp'),
+      {
+        year: this.year,
+        date: this.date,
+        projectName: this.answers['projectName'],
+        projectPath: this.answers['projectPath'],
+        authorName: this.answers['authorName'],
+        authorEmail: this.answers['authorEmail'],
+        companyName: this.answers['companyName']
+      }
+    ) ;
 
-      this.fs.copyTpl
-      (
-        this.templatePath('test/Global.test.hpp'),
-        this.destinationPath('test/Global.test.hpp'),
-        {
-          year: this.year,
-          date: this.date,
-          projectName: this.answers['projectName'],
-          projectPath: this.answers['projectPath'],
-          authorName: this.answers['authorName'],
-          authorEmail: this.answers['authorEmail'],
-          companyName: this.answers['companyName']
-        }
-      ) ;
+    this.fs.copyTpl
+    (
+      this.templatePath('test/Main.test.cxx'),
+      this.destinationPath('test/Main.test.cxx'),
+      {
+        year: this.year,
+        date: this.date,
+        projectName: this.answers['projectName'],
+        projectPath: this.answers['projectPath'],
+        authorName: this.answers['authorName'],
+        authorEmail: this.answers['authorEmail'],
+        companyName: this.answers['companyName']
+      }
+    ) ;
 
-      this.fs.copyTpl
-      (
-        this.templatePath('test/Main.test.cxx'),
-        this.destinationPath('test/Main.test.cxx'),
-        {
-          year: this.year,
-          date: this.date,
-          projectName: this.answers['projectName'],
-          projectPath: this.answers['projectPath'],
-          authorName: this.answers['authorName'],
-          authorEmail: this.answers['authorEmail'],
-          companyName: this.answers['companyName']
-        }
-      ) ;
+    this.fs.copyTpl
+    (
+      this.templatePath('test/Setup.test.hpp'),
+      this.destinationPath('test/Setup.test.hpp'),
+      {
+        year: this.year,
+        date: this.date,
+        projectName: this.answers['projectName'],
+        projectPath: this.answers['projectPath'],
+        authorName: this.answers['authorName'],
+        authorEmail: this.answers['authorEmail'],
+        companyName: this.answers['companyName']
+      }
+    ) ;
 
-      this.fs.copyTpl
-      (
-        this.templatePath('test/Setup.test.hpp'),
-        this.destinationPath('test/Setup.test.hpp'),
-        {
-          year: this.year,
-          date: this.date,
-          projectName: this.answers['projectName'],
-          projectPath: this.answers['projectPath'],
-          authorName: this.answers['authorName'],
-          authorEmail: this.answers['authorEmail'],
-          companyName: this.answers['companyName']
-        }
-      ) ;
-
-      this.fs.copyTpl
-      (
-        this.templatePath('test/CppLibrary/MyClass.test.cpp'),
-        this.destinationPath('test/' + this.answers['projectPath'] + '/MyClass.test.cpp'),
-        {
-          year: this.year,
-          date: this.date,
-          projectName: this.answers['projectName'],
-          projectPath: this.answers['projectPath'],
-          authorName: this.answers['authorName'],
-          authorEmail: this.answers['authorEmail'],
-          companyName: this.answers['companyName']
-        }
-      ) ;
-
-    }
+    this.fs.copyTpl
+    (
+      this.templatePath('test/CppLibrary/MyClass.test.cpp'),
+      this.destinationPath('test/' + this.answers['projectPath'] + '/MyClass.test.cpp'),
+      {
+        year: this.year,
+        date: this.date,
+        projectName: this.answers['projectName'],
+        projectPath: this.answers['projectPath'],
+        authorName: this.answers['authorName'],
+        authorEmail: this.answers['authorEmail'],
+        companyName: this.answers['companyName']
+      }
+    ) ;
 
   }
 
   _setupDocumentation ()
   {
 
-    if (this.answers['buildDocumentation'])
-    {
-
-      this.fs.write
-      (
-        this.destinationPath('docs/.gitkeep'),
-        ''
-      ) ;
-
-    }
+    this.fs.write
+    (
+      this.destinationPath('docs/.gitkeep'),
+      ''
+    ) ;
 
   }
 
