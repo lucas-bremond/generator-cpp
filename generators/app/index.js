@@ -181,7 +181,7 @@ module.exports = class extends Generator
   
   end ()
   {
-    
+    this.config.set(this.answers) ;
   }
 
   // Private methods

@@ -26,6 +26,10 @@ To create a new C++ library:
 
     yo cpp-library
 
+To create a new C++ class:
+
+    yo cpp-library:class
+
 ## Credits
 
 Thanks to:
