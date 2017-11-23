@@ -1,6 +1,14 @@
-# C++ Library Generator
+# C++ Project Generator
 
-A C++ library generator for [Yeoman](http://yeoman.io/).
+A C++ project generator for [Yeoman](http://yeoman.io/).
+
+| Feature           | Dependency  | Version |
+|-------------------|-------------|---------|
+| Source Control    | Git         | 2.13.3  |
+| Build & Packaging | CMake       | 2.8.12  |
+| Unit Testing      | GoogleTest  | 1.8.0   |
+| Code Coverage     | Lcov / Gcov | -       |
+| Documentation     | Doxygen     | 1.8.13  |
 
 ## Dependencies
 
@@ -18,21 +26,21 @@ https://www.npmjs.com/
 
 To install the generator:
 
-    npm install generator-cpp-library
+    npm install generator-cpp
 
 ## Usage
 
 To create a new C++ library:
 
-    yo cpp-library
+    yo cpp
 
 To create a new C++ class:
 
-    yo cpp-library:class
+    yo cpp:class
 
 ## Credits
 
-Thanks to:
+Big thanks to:
 
-- Yeoman generator: https://github.com/gpichot/generator-cpp-suite
+- generator-cpp-suite: https://github.com/gpichot/generator-cpp-suite
 - CONTRIBUTING: https://gist.github.com/PurpleBooth/b24679402957c63ec426

@@ -1,16 +1,16 @@
 {
-    "name": "generator-cpp-library",
+    "name": "generator-cpp",
     "version": "0.1.0",
-    "description": "A Yeoman generator for C++ libraries.",
-    "homepage": "https://github.com/lucas-bremond/generator-cpp-library",
-    "bugs": "https://github.com/lucas-bremond/generator-cpp-library/issues",
+    "description": "A Yeoman generator for C++ projects.",
+    "homepage": "https://github.com/lucas-bremond/generator-cpp",
+    "bugs": "https://github.com/lucas-bremond/generator-cpp/issues",
     "author": {
         "name": "Lucas Bremond"
     },
     "main": "generators/app/index.js",
     "repository": {
         "type": "git",
-        "url": "git://github.com/lucas-bremond/generator-cpp-library.git"
+        "url": "git://github.com/lucas-bremond/generator-cpp.git"
     },
     "dependencies": {
         "yeoman-generator": "^1.0.0",
