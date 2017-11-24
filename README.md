@@ -30,11 +30,11 @@ To install the generator:
 
 ## Usage
 
-To create a new C++ project:
+To create a new project:
 
     yo cpp
 
-To create a new C++ class:
+To create a new class:
 
     yo cpp:class
 
