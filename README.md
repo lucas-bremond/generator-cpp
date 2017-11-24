@@ -38,6 +38,10 @@ To create a new class:
 
     yo cpp:class
 
+To display help:
+
+    yo cpp --help
+
 ## Credits
 
 Big thanks to:
