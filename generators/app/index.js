@@ -427,8 +427,8 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('share/CppUtility/src/CppUtility.cxx'),
-      this.destinationPath('share/CppUtility/src/CppUtility.cxx'),
+      this.templatePath('share/CppUtility/src/MyUtility.cxx'),
+      this.destinationPath('share/CppUtility/src/MyUtility.cxx'),
       {
         year: this.year,
         date: this.date,
