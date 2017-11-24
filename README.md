@@ -1,6 +1,6 @@
 # C++ Project Generator
 
-A C++ project generator for [Yeoman](http://yeoman.io/).
+A [Yeoman](http://yeoman.io/) generator for C++ projects.
 
 | Feature           | Dependency  | Version |
 |-------------------|-------------|---------|
