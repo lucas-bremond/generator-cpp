@@ -37,25 +37,25 @@ module.exports = class extends Generator
           type: 'input',
           name: 'projectName',
           message: 'Project name:',
-          default: 'C++ Library'
+          default: 'C++ Project'
         },
         {
           type: 'input',
           name: 'projectDescription',
           message: 'Project description:',
-          default: 'A pretty cool C++ library.'
+          default: 'A pretty cool C++ project.'
         },
         {
           type: 'input',
           name: 'projectPath',
           message: 'Project path:',
-          default: 'CppLibrary'
+          default: 'CppProject'
         },
         {
           type: 'input',
           name: 'projectPackage',
           message: 'Project package name:',
-          default: 'cpp-library'
+          default: 'cpp-project'
         },
         {
           type: 'input',
@@ -299,7 +299,7 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('tools/cmake/CppLibraryConfig.cmake.in'),
+      this.templatePath('tools/cmake/CppProjectConfig.cmake.in'),
       this.destinationPath('tools/cmake/' + this.answers['projectPath'] + 'Config.cmake.in'),
       {
         year: this.year,
@@ -315,7 +315,7 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('tools/cmake/CppLibraryConfigVersion.cmake.in'),
+      this.templatePath('tools/cmake/CppProjectConfigVersion.cmake.in'),
       this.destinationPath('tools/cmake/' + this.answers['projectPath'] + 'ConfigVersion.cmake.in'),
       {
         year: this.year,
@@ -392,7 +392,7 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('include/CppLibrary/MyClass.hpp'),
+      this.templatePath('include/CppProject/MyClass.hpp'),
       this.destinationPath('include/' + this.answers['projectPath'] + '/MyClass.hpp'),
       {
         year: this.year,
@@ -407,7 +407,7 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('src/CppLibrary/MyClass.cpp'),
+      this.templatePath('src/CppProject/MyClass.cpp'),
       this.destinationPath('src/' + this.answers['projectPath'] + '/MyClass.cpp'),
       {
         year: this.year,
@@ -427,8 +427,8 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('share/MyUtility/src/MyUtility.cxx'),
-      this.destinationPath('share/MyUtility/src/MyUtility.cxx'),
+      this.templatePath('share/CppUtility/src/CppUtility.cxx'),
+      this.destinationPath('share/CppUtility/src/CppUtility.cxx'),
       {
         year: this.year,
         date: this.date,
@@ -442,8 +442,8 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('share/MyUtility/CMakeLists.txt'),
-      this.destinationPath('share/MyUtility/CMakeLists.txt'),
+      this.templatePath('share/CppUtility/CMakeLists.txt'),
+      this.destinationPath('share/CppUtility/CMakeLists.txt'),
       {
         year: this.year,
         date: this.date,
@@ -517,7 +517,7 @@ module.exports = class extends Generator
 
     this.fs.copyTpl
     (
-      this.templatePath('test/CppLibrary/MyClass.test.cpp'),
+      this.templatePath('test/CppProject/MyClass.test.cpp'),
       this.destinationPath('test/' + this.answers['projectPath'] + '/MyClass.test.cpp'),
       {
         year: this.year,

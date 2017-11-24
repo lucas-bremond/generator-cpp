@@ -22,6 +22,9 @@ int								main										(			int							argc,
 
 	using <%= projectPath.toLowerCase() %>::MyClass ;
 
+	(void) argc ;
+	(void) argv ;
+
 	MyClass myClass = MyClass::Integer(123) ;
 
 	myClass.doSomething() ;
