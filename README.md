@@ -30,7 +30,7 @@ To install the generator:
 
 ## Usage
 
-To create a new C++ library:
+To create a new C++ project:
 
     yo cpp
 
