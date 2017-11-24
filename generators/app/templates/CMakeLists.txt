@@ -305,7 +305,7 @@ ENDIF ()
 
 IF (BUILD_UTILITY)
 
-    ADD_SUBDIRECTORY ("${PROJECT_SOURCE_DIR}/share/MyUtility")
+    ADD_SUBDIRECTORY ("${PROJECT_SOURCE_DIR}/share/CppUtility")
 
 ENDIF ()
 

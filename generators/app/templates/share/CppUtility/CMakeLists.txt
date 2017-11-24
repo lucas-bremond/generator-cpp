@@ -6,7 +6,7 @@
 ###
 ########################################################################################################################################################
 
-### @file                       <%= projectPath %>/MyUtility/CMakeLists.txt
+### @file                       <%= projectPath %>/CppUtility/CMakeLists.txt
 ### @author                     <%= authorName %> <<%= authorEmail %>>
 ### @date                       <%= date %>
 
