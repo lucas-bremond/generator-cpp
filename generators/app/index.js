@@ -27,6 +27,7 @@ module.exports = class extends Generator
       buildStaticLib: false,
       buildUtility: true,
       buildTest: true,
+      buildCodeCoverage: true,
       unitTestType: 'gtest',
       buildDocumentation: true
     } ;
@@ -193,6 +194,13 @@ module.exports = class extends Generator
         },
         {
           type: 'confirm',
+          when: (answers) => { return answers.buildTest ; },
+          name: 'buildCodeCoverage',
+          message: 'Would you like to run the code coverage analysis?',
+          default: this.settings.buildCodeCoverage
+        },
+        {
+          type: 'confirm',
           name: 'buildDocumentation',
           message: 'Would you like to build the documentation?',
           default: this.settings.buildDocumentation
@@ -251,6 +259,11 @@ module.exports = class extends Generator
     if (this.settings.buildTest)
     {
       this._setupTest() ;
+    }
+
+    if (this.settings.buildCodeCoverage)
+    {
+      this._setupCodeCoverage() ;
     }
 
     if (this.settings.buildDocumentation)
@@ -338,6 +351,7 @@ module.exports = class extends Generator
         buildStaticLib: this.settings.buildStaticLib,
         buildUtility: this.settings.buildUtility,
         buildTest: this.settings.buildTest,
+        buildCodeCoverage: this.settings.buildCodeCoverage,
         buildDocumentation: this.settings.buildDocumentation
       }
     ) ;
@@ -421,18 +435,6 @@ module.exports = class extends Generator
 
     this.fs.copy
     (
-      this.templatePath('tools/cmake/DocumentationTargets.cmake'),
-      this.destinationPath('tools/cmake/DocumentationTargets.cmake')
-    ) ;
-
-    this.fs.copy
-    (
-      this.templatePath('tools/cmake/FindGTest.cmake'),
-      this.destinationPath('tools/cmake/FindGTest.cmake')
-    ) ;
-
-    this.fs.copy
-    (
       this.templatePath('tools/cmake/GetGitRevisionDescription.cmake'),
       this.destinationPath('tools/cmake/GetGitRevisionDescription.cmake')
     ) ;
@@ -456,12 +458,6 @@ module.exports = class extends Generator
         authorEmail: this.settings.authorEmail,
         companyName: this.settings.companyName
       }
-    ) ;
-
-    this.fs.copy
-    (
-      this.templatePath('tools/doxygen'),
-      this.destinationPath('tools/doxygen')
     ) ;
 
   }
@@ -563,6 +559,12 @@ module.exports = class extends Generator
 
     this.fs.copy
     (
+      this.templatePath('tools/cmake/FindGTest.cmake'),
+      this.destinationPath('tools/cmake/FindGTest.cmake')
+    ) ;
+
+    this.fs.copy
+    (
       this.templatePath('thirdparty/gtest/CMakeLists.txt'),
       this.destinationPath('thirdparty/gtest/CMakeLists.txt')
     ) ;
@@ -629,8 +631,31 @@ module.exports = class extends Generator
 
   }
 
+  _setupCodeCoverage ()
+  {
+
+    this.fs.copy
+    (
+      this.templatePath('tools/cmake/CodeCoverage.cmake'),
+      this.destinationPath('tools/cmake/CodeCoverage.cmake')
+    ) ;
+
+  }
+
   _setupDocumentation ()
   {
+
+    this.fs.copy
+    (
+      this.templatePath('tools/cmake/DocumentationTargets.cmake'),
+      this.destinationPath('tools/cmake/DocumentationTargets.cmake')
+    ) ;
+
+    this.fs.copy
+    (
+      this.templatePath('tools/doxygen'),
+      this.destinationPath('tools/doxygen')
+    ) ;
 
     this.fs.copy
     (

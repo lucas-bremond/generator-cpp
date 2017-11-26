@@ -99,6 +99,31 @@ or...
 make
 ```
 
+To run the tests:
+
+```bash
+make test
+```
+
+To run the code coverage analysis:
+
+```bash
+make coverage
+```
+
+To generate the documentation:
+
+```bash
+make docs
+```
+
+To install / uninstall:
+
+```bash
+make install
+make uninstall
+```
+
 ## Test
 
 To run all tests:

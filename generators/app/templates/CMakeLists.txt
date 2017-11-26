@@ -32,6 +32,7 @@ OPTION (BUILD_SHARED_LIBRARY "Build shared library." <%= buildSharedLib ? 'ON' :
 OPTION (BUILD_STATIC_LIBRARY "Build static library." <%= buildStaticLib ? 'ON' : 'OFF' %>)
 OPTION (BUILD_UTILITY "Build utility." <%= buildUtility ? 'ON' : 'OFF' %>)
 OPTION (BUILD_UNIT_TESTS "Build tests" <%= buildTest ? 'ON' : 'OFF' %>)
+OPTION (BUILD_CODE_COVERAGE "Build code coverage" <%= buildCodeCoverage ? 'ON' : 'OFF' %>)
 OPTION (BUILD_DOCUMENTATION "Build documentation" <%= buildDocumentation ? 'ON' : 'OFF' %>)
 OPTION (INSTALL_DATA "Install data" ON)
 
@@ -351,6 +352,27 @@ IF (BUILD_UNIT_TESTS)
     INSTALL (TARGETS ${UNIT_TESTS_TARGET} DESTINATION ${INSTALL_TEST} COMPONENT "tests")
     
     ADD_CUSTOM_TARGET ("check" "${PROJECT_SOURCE_DIR}/bin/${UNIT_TESTS_TARGET}" "${CMAKE_CURRENT_LIST_DIR}/test" DEPENDS ${UNIT_TESTS_TARGET} COMMENT "Executing unit tests..." VERBATIM SOURCES ${TEST_SRCS})
+
+    #### Code Coverage
+
+    IF (BUILD_CODE_COVERAGE)
+
+        SET (COVERAGE_TARGET "coverage")
+
+        INCLUDE (CodeCoverage)
+
+        APPEND_COVERAGE_COMPILER_FLAGS ()
+
+        SET (COVERAGE_EXCLUDES  "${CMAKE_CURRENT_BINARY_DIR}/thirdparty/gtest/src/googletest/googletest/include/gtest/*"
+                                "${CMAKE_CURRENT_BINARY_DIR}/thirdparty/gtest/src/googletest/googletest/include/gtest/internal/*")
+
+        SETUP_TARGET_FOR_COVERAGE (
+            NAME ${COVERAGE_TARGET}
+            EXECUTABLE ${UNIT_TESTS_TARGET}
+            DEPENDENCIES "coverage"
+        )
+
+    ENDIF ()
 
 ENDIF ()
 
