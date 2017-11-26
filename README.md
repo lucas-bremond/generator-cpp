@@ -131,3 +131,7 @@ Big thanks to:
 - [generator-cpp-suite](https://github.com/gpichot/generator-cpp-suite)
 - [Yet Another Cpp Template Generator](https://github.com/merlinvn/generator-yact)
 - [CONTRIBUTING](https://gist.github.com/PurpleBooth/b24679402957c63ec426)
+- [CodeCoverage.cmake](https://github.com/bilke/cmake-modules/blob/master/CodeCoverage.cmake)
+- [GetGitRevisionDescription.cmake](https://github.com/rpavlik/cmake-modules/blob/master/GetGitRevisionDescription.cmake)
+- [UninstallTarget.cmake](https://github.com/benekastah/cpp-project-template/blob/master/tools/share/cmake/DocumentationTargets.cmake)
+- [doxygen-bootstrapped](https://github.com/Velron/doxygen-bootstrapped)
