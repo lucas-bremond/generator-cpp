@@ -36,19 +36,19 @@ npm install generator-cpp
 
 ### Project
 
-Create project interactively:
+To create a project interactively:
 
 ```bash
 yo cpp
 ```
 
-Create project manually:
+To create a project manually:
 
 ```bash
 yo cpp --name "MyProject" --author "Bob Marley" --email "bob@marley.com"
 ```
 
-Create project automatically:
+To create a project automatically:
 
 ```bash
 yo cpp --auto
@@ -56,19 +56,19 @@ yo cpp --auto
 
 ### Class
 
-Create class interactively:
+To create a class interactively:
 
 ```bash
 yo cpp:class
 ```
 
-Create class manually:
+To create a class manually:
 
 ```bash
 yo cpp:class MyClass
 ```
 
-Create class automatically:
+To create a class automatically:
 
 ```bash
 yo cpp:class --auto
@@ -76,7 +76,7 @@ yo cpp:class --auto
 
 ### Other
 
-Display help:
+To display help:
 
 ```bash
 yo cpp --help
@@ -101,7 +101,7 @@ make
 
 ## Test
 
-The run all tests:
+To run all tests:
 
 ```bash
 ./bin/cpp-project.test
