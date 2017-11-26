@@ -28,7 +28,7 @@ module.exports = class extends Generator
       buildUtility: true,
       buildTest: true,
       unitTestType: 'gtest',
-      buildDocumentation: false
+      buildDocumentation: true
     } ;
 
     this.interactive = true ;
@@ -631,6 +631,12 @@ module.exports = class extends Generator
 
   _setupDocumentation ()
   {
+
+    this.fs.copy
+    (
+      this.templatePath('thirdparty/doxygen/CMakeLists.txt'),
+      this.destinationPath('thirdparty/doxygen/CMakeLists.txt')
+    ) ;
 
     this.fs.write
     (

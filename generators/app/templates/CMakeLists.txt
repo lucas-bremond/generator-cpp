@@ -358,11 +358,7 @@ ENDIF ()
 
 IF (BUILD_DOCUMENTATION)
 
-    FIND_PACKAGE ("Doxygen" REQUIRED)
-    
-    IF (NOT DOXYGEN_FOUND)
-        MESSAGE (FATAL_ERROR "Doxygen is needed to build the documentation.")
-    ENDIF ()
+    SET (DOCUMENTATION_TARGET "docs")
 
     SET (DOXYFILE_IN "${PROJECT_SOURCE_DIR}/tools/doxygen/Doxyfile.in")
     SET (DOXYFILE "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
@@ -377,11 +373,30 @@ IF (BUILD_DOCUMENTATION)
     CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/tools/doxygen/doxygen-bootstrapped/addons/bootstrap/jquery.smartmenus.bootstrap.js" "${CMAKE_CURRENT_BINARY_DIR}/jquery.smartmenus.bootstrap.js" COPYONLY)
     CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/tools/doxygen/doxygen-bootstrapped/addons/bootstrap/jquery.smartmenus.bootstrap.css" "${CMAKE_CURRENT_BINARY_DIR}/jquery.smartmenus.bootstrap.css" COPYONLY)
 
-    ADD_CUSTOM_TARGET ("docs" ALL
-        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generating API documentation with Doxygen"
-        VERBATIM)
+    FIND_PACKAGE ("Doxygen")
+    
+    IF (NOT DOXYGEN_FOUND)
+            
+        ADD_SUBDIRECTORY ("${PROJECT_SOURCE_DIR}/thirdparty/doxygen")
+
+        SET (DOXYGEN_EXECUTABLE "${CMAKE_CURRENT_BINARY_DIR}/thirdparty/doxygen/source/bin/doxygen")
+
+        ADD_CUSTOM_TARGET (${DOCUMENTATION_TARGET} ALL
+            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            DEPENDS "doxygen"
+            COMMENT "Generating API documentation with Doxygen"
+            VERBATIM)
+
+    ELSE ()
+
+        ADD_CUSTOM_TARGET (${DOCUMENTATION_TARGET} ALL
+            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            COMMENT "Generating API documentation with Doxygen"
+            VERBATIM)
+        
+    ENDIF ()
 
     INSTALL (DIRECTORY "${DOCS_OUTPUT_PATH}/html/" DESTINATION ${INSTALL_DOC} COMPONENT "documentation")
 
