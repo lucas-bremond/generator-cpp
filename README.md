@@ -14,37 +14,52 @@ A [Yeoman](http://yeoman.io/) generator for C++ projects.
 
 The following tools are required:
 
-**npm**
+### npm
 
-https://www.npmjs.com/
+[https://www.npmjs.com/](https://www.npmjs.com/)
 
-**Yeoman**
+### Yeoman
 
-    npm install -g yo
+```bash
+npm install -g yo
+```
 
 ## Install
 
 To install the generator:
 
-    npm install generator-cpp
+```bash
+npm install generator-cpp
+```
 
 ## Usage
 
 To create a new project:
 
-    yo cpp
+```bash
+yo cpp # Interactive
+yo cpp --name "MyProject" --author "Bob Marley" --email "bob@marley.com" # Manual
+yo cpp --auto # Automatic (default values)
+```
 
 To create a new class:
 
-    yo cpp:class
+```bash
+yo cpp:class # Interactive
+yo cpp:class MyClass # Manual
+yo cpp:class --auto # Automatic (default values)
+```
 
 To display help:
 
-    yo cpp --help
+```bash
+yo cpp --help
+```
 
 ## Credits
 
 Big thanks to:
 
-- generator-cpp-suite: https://github.com/gpichot/generator-cpp-suite
-- CONTRIBUTING: https://gist.github.com/PurpleBooth/b24679402957c63ec426
+- [generator-cpp-suite](https://github.com/gpichot/generator-cpp-suite)
+- [Yet Another Cpp Template Generator](https://github.com/merlinvn/generator-yact)
+- [CONTRIBUTING](https://gist.github.com/PurpleBooth/b24679402957c63ec426)

@@ -315,17 +315,24 @@ IF (BUILD_UNIT_TESTS)
 
     SET (UNIT_TESTS_TARGET "${PROJECT_PACKAGE_NAME}.test")
 
-    FIND_PACKAGE ("GTest" REQUIRED)
-
-    IF (NOT GTEST_FOUND)
-        MESSAGE (FATAL_ERROR "GTest is needed to build the unit tests.")
-    ENDIF ()
-
-    ENABLE_TESTING ()
-
     FILE (GLOB_RECURSE TEST_SRCS "${PROJECT_SOURCE_DIR}/test/${PROJECT_PATH}/*.test.cpp")
 
     ADD_EXECUTABLE (${UNIT_TESTS_TARGET} ${TEST_SRCS})
+
+    FIND_PACKAGE ("GTest")
+
+    IF (NOT GTEST_FOUND)
+            
+        ADD_SUBDIRECTORY ("${PROJECT_SOURCE_DIR}/thirdparty/gtest")
+
+        ADD_DEPENDENCIES (${UNIT_TESTS_TARGET} "googletest")
+
+        LIST (APPEND GTEST_BOTH_LIBRARIES "${GTEST_LIBS_DIR}/libgtest.a")
+        LIST (APPEND GTEST_BOTH_LIBRARIES "${GTEST_LIBS_DIR}/libgtest_main.a")
+        
+    ENDIF ()
+
+    ENABLE_TESTING ()
 
     ADD_DEPENDENCIES (${UNIT_TESTS_TARGET} ${SHARED_LIBRARY_TARGET})
 

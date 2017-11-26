@@ -11,7 +11,58 @@ module.exports = class extends Generator
     
     super (args, opts) ;
 
-    // this.option('babel') ;
+    this.settings =
+    {
+      projectName: 'C++ Project',
+      projectDescription: 'A pretty cool C++ project.',
+      projectPath: 'CppProject',
+      projectPackage: 'cpp-project',
+      projectLicense: 'MIT License',
+      authorName: 'Bob Marley',
+      authorEmail: 'bob@marley.com',
+      companyName: 'Company Inc.',
+      companyId: 'com.company',
+      companyWebsite: 'www.company.com',
+      buildSharedLib: true,
+      buildStaticLib: false,
+      buildUtility: true,
+      buildTest: true,
+      unitTestType: 'gtest',
+      buildDocumentation: false
+    } ;
+
+    this.interactive = true ;
+
+    this.option('auto') ;
+
+    if (this.options.auto)
+    {
+      this.interactive = false ;
+    }
+
+    this.argument('name', { type: String, required: false }) ;
+    this.argument('author', { type: String, required: false }) ;
+    this.argument('email', { type: String, required: false }) ;
+
+    if (this.options.name)
+    {
+      this.settings.projectName = this.options.name ;
+      this.settings.projectPath = this.options.name ;
+      this.settings.projectPackage = this.options.name ;
+      this.interactive = false ;
+    }
+
+    if (this.options.author)
+    {
+      this.settings.authorName = this.options.author ;
+      this.interactive = false ;
+    }
+
+    if (this.options.email)
+    {
+      this.settings.authorEmail = this.options.email ;
+      this.interactive = false ;
+    }
   
   }
 
@@ -22,13 +73,18 @@ module.exports = class extends Generator
     
     let currentDate = moment() ;
 
-    this.year = currentDate.format("YYYY") ;
-    this.date = currentDate.format("D MMM YYYY") ;
+    this.year = currentDate.format('YYYY') ;
+    this.date = currentDate.format('D MMM YYYY') ;
 
   }
 
   prompting ()
   {
+
+    if (!this.interactive)
+    {
+      return ;
+    }
     
     return this.prompt
     (
@@ -37,91 +93,109 @@ module.exports = class extends Generator
           type: 'input',
           name: 'projectName',
           message: 'Project name:',
-          default: 'C++ Project'
+          default: this.settings.projectName
         },
         {
           type: 'input',
           name: 'projectDescription',
           message: 'Project description:',
-          default: 'A pretty cool C++ project.'
+          default: this.settings.projectDescription
         },
         {
           type: 'input',
           name: 'projectPath',
           message: 'Project path:',
-          default: 'CppProject'
+          default: this.settings.projectPath
         },
         {
           type: 'input',
           name: 'projectPackage',
           message: 'Project package name:',
-          default: 'cpp-project'
+          default: this.settings.projectPackage
         },
         {
           type: 'input',
           name: 'projectLicense',
           message: 'Project license:',
-          default: 'MIT License'
+          default: this.settings.projectLicense
         },
         {
           type: 'input',
           name: 'authorName',
           message: 'Author name:',
-          default: 'Bob Marley'
+          default: this.settings.authorName
         },
         {
           type: 'input',
           name: 'authorEmail',
           message: 'Author e-mail:',
-          default: 'bob@marley.com'
+          default: this.settings.authorEmail
         },
         {
           type: 'input',
           name: 'companyName',
           message: 'Company name:',
-          default: 'Company Inc.'
+          default: this.settings.companyName
         },
         {
           type: 'input',
           name: 'companyId',
           message: 'Company ID:',
-          default: 'com.company'
+          default: this.settings.companyId
         },
         {
           type: 'input',
           name: 'companyWebsite',
           message: 'Company website:',
-          default: 'www.company.com'
+          default: this.settings.companyWebsite
         },
         {
           type: 'confirm',
           name: 'buildSharedLib',
           message: 'Would you like to build a shared library?',
-          default: true
+          default: this.settings.buildSharedLib
         },
         {
           type: 'confirm',
           name: 'buildStaticLib',
           message: 'Would you like to build a static library?',
-          default: false
+          default: this.settings.buildStaticLib
         },
         {
           type: 'confirm',
           name: 'buildUtility',
           message: 'Would you like to build a utility?',
-          default: true
+          default: this.settings.buildUtility
         },
         {
           type: 'confirm',
           name: 'buildTest',
           message: 'Would you like to build the unit tests?',
-          default: true
+          default: this.settings.buildTest
+        },
+        {
+          type: 'list',
+          when: (answers) => { return answers.buildTest ; },
+          name: 'unitTestType',
+          message: 'Select unit test framework type:',
+          choices:
+          [
+            {
+              name: 'Google Test',
+              value: 'gtest'
+            }
+            // {
+            //   name: 'CATCH (C++ Automated Test Cases in Headers)',
+            //   value: 'catch'
+            // }
+          ],
+          default: this.settings.unitTestType
         },
         {
           type: 'confirm',
           name: 'buildDocumentation',
           message: 'Would you like to build the documentation?',
-          default: true
+          default: this.settings.buildDocumentation
         }
       ]
     )
@@ -129,7 +203,24 @@ module.exports = class extends Generator
     (
       (answers) =>
       {
-        this.answers = answers ;
+        
+        this.settings.projectName = answers['projectName'] ;
+        this.settings.projectDescription = answers['projectDescription'] ;
+        this.settings.projectPath = answers['projectPath'] ;
+        this.settings.projectPackage = answers['projectPackage'] ;
+        this.settings.projectLicense = answers['projectLicense'] ;
+        this.settings.authorName = answers['authorName'] ;
+        this.settings.authorEmail = answers['authorEmail'] ;
+        this.settings.companyName = answers['companyName'] ;
+        this.settings.companyId = answers['companyId'] ;
+        this.settings.companyWebsite = answers['companyWebsite'] ;
+        this.settings.buildSharedLib = answers['buildSharedLib'] ;
+        this.settings.buildStaticLib = answers['buildStaticLib'] ;
+        this.settings.buildUtility = answers['buildUtility'] ;
+        this.settings.buildTest = answers['buildTest'] ;
+        this.settings.unitTestType = answers['unitTestType'] ;
+        this.settings.buildDocumentation = answers['buildDocumentation'] ;
+        
       }
     ) ;
 
@@ -152,17 +243,17 @@ module.exports = class extends Generator
     this._setupBuild() ;
     this._setupSrc() ;
 
-    if (this.answers['buildUtility'])
+    if (this.settings.buildUtility)
     {
       this._setupUtility() ;
     }
 
-    if (this.answers['buildTest'])
+    if (this.settings.buildTest)
     {
       this._setupTest() ;
     }
 
-    if (this.answers['buildDocumentation'])
+    if (this.settings.buildDocumentation)
     {
       this._setupDocumentation() ;
     }
@@ -181,7 +272,7 @@ module.exports = class extends Generator
   
   end ()
   {
-    this.config.set(this.answers) ;
+    this.config.set(this.settings) ;
   }
 
   // Private methods
@@ -196,11 +287,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -218,11 +309,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -233,21 +324,21 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectDescription: this.answers['projectDescription'],
-        projectPath: this.answers['projectPath'],
-        projectPackage: this.answers['projectPackage'],
-        projectLicense: this.answers['projectLicense'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName'],
-        companyId: this.answers['companyId'],
-        companyWebsite: this.answers['companyWebsite'],
-        buildSharedLib: this.answers['buildSharedLib'],
-        buildStaticLib: this.answers['buildStaticLib'],
-        buildUtility: this.answers['buildUtility'],
-        buildTest: this.answers['buildTest'],
-        buildDocumentation: this.answers['buildDocumentation']
+        projectName: this.settings.projectName,
+        projectDescription: this.settings.projectDescription,
+        projectPath: this.settings.projectPath,
+        projectPackage: this.settings.projectPackage,
+        projectLicense: this.settings.projectLicense,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName,
+        companyId: this.settings.companyId,
+        companyWebsite: this.settings.companyWebsite,
+        buildSharedLib: this.settings.buildSharedLib,
+        buildStaticLib: this.settings.buildStaticLib,
+        buildUtility: this.settings.buildUtility,
+        buildTest: this.settings.buildTest,
+        buildDocumentation: this.settings.buildDocumentation
       }
     ) ;
     
@@ -258,11 +349,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -273,11 +364,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -292,39 +383,39 @@ module.exports = class extends Generator
       this.templatePath('README.md'),
       this.destinationPath('README.md'),
       {
-        projectName: this.answers['projectName'],
-        projectDescription: this.answers['projectDescription']
+        projectName: this.settings.projectName,
+        projectDescription: this.settings.projectDescription
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('tools/cmake/CppProjectConfig.cmake.in'),
-      this.destinationPath('tools/cmake/' + this.answers['projectPath'] + 'Config.cmake.in'),
+      this.destinationPath('tools/cmake/' + this.settings.projectPath + 'Config.cmake.in'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        projectPackage: this.answers['projectPackage'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        projectPackage: this.settings.projectPackage,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('tools/cmake/CppProjectConfigVersion.cmake.in'),
-      this.destinationPath('tools/cmake/' + this.answers['projectPath'] + 'ConfigVersion.cmake.in'),
+      this.destinationPath('tools/cmake/' + this.settings.projectPath + 'ConfigVersion.cmake.in'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -359,11 +450,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -393,30 +484,30 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('include/CppProject/MyClass.hpp'),
-      this.destinationPath('include/' + this.answers['projectPath'] + '/MyClass.hpp'),
+      this.destinationPath('include/' + this.settings.projectPath + '/MyClass.hpp'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('src/CppProject/MyClass.cpp'),
-      this.destinationPath('src/' + this.answers['projectPath'] + '/MyClass.cpp'),
+      this.destinationPath('src/' + this.settings.projectPath + '/MyClass.cpp'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -432,11 +523,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -447,21 +538,21 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectDescription: this.answers['projectDescription'],
-        projectPath: this.answers['projectPath'],
-        projectPackage: this.answers['projectPackage'],
-        projectLicense: this.answers['projectLicense'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName'],
-        companyId: this.answers['companyId'],
-        companyWebsite: this.answers['companyWebsite'],
-        buildSharedLib: this.answers['buildSharedLib'],
-        buildStaticLib: this.answers['buildStaticLib'],
-        buildUtility: this.answers['buildUtility'],
-        buildTest: this.answers['buildTest'],
-        buildDocumentation: this.answers['buildDocumentation']
+        projectName: this.settings.projectName,
+        projectDescription: this.settings.projectDescription,
+        projectPath: this.settings.projectPath,
+        projectPackage: this.settings.projectPackage,
+        projectLicense: this.settings.projectLicense,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName,
+        companyId: this.settings.companyId,
+        companyWebsite: this.settings.companyWebsite,
+        buildSharedLib: this.settings.buildSharedLib,
+        buildStaticLib: this.settings.buildStaticLib,
+        buildUtility: this.settings.buildUtility,
+        buildTest: this.settings.buildTest,
+        buildDocumentation: this.settings.buildDocumentation
       }
     ) ;
 
@@ -470,6 +561,12 @@ module.exports = class extends Generator
   _setupTest ()
   {
 
+    this.fs.copy
+    (
+      this.templatePath('thirdparty/gtest/CMakeLists.txt'),
+      this.destinationPath('thirdparty/gtest/CMakeLists.txt')
+    ) ;
+
     this.fs.copyTpl
     (
       this.templatePath('test/Global.test.hpp'),
@@ -477,11 +574,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -492,11 +589,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
@@ -507,26 +604,26 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('test/CppProject/MyClass.test.cpp'),
-      this.destinationPath('test/' + this.answers['projectPath'] + '/MyClass.test.cpp'),
+      this.destinationPath('test/' + this.settings.projectPath + '/MyClass.test.cpp'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.answers['projectName'],
-        projectPath: this.answers['projectPath'],
-        authorName: this.answers['authorName'],
-        authorEmail: this.answers['authorEmail'],
-        companyName: this.answers['companyName']
+        projectName: this.settings.projectName,
+        projectPath: this.settings.projectPath,
+        authorName: this.settings.authorName,
+        authorEmail: this.settings.authorEmail,
+        companyName: this.settings.companyName
       }
     ) ;
 

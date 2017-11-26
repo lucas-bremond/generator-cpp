@@ -10,6 +10,32 @@ module.exports = class extends Generator
   {
     
     super (args, opts) ;
+
+    this.settings =
+    {
+      className: 'MyNewClass',
+      parentClassName: '',
+      folder: '',
+      headerOnly: false,
+      generateTest: true
+    } ;
+
+    this.interactive = true ;
+
+    this.option('auto') ;
+
+    if (this.options.auto)
+    {
+      this.interactive = false ;
+    }
+
+    this.argument('name', { type: String, required: false }) ;
+
+    if (this.options.name)
+    {
+      this.settings.className = this.options.name ;
+      this.interactive = false ;
+    }
   
   }
 
@@ -20,13 +46,18 @@ module.exports = class extends Generator
     
     let currentDate = moment() ;
 
-    this.year = currentDate.format("YYYY") ;
-    this.date = currentDate.format("D MMM YYYY") ;
+    this.year = currentDate.format('YYYY') ;
+    this.date = currentDate.format('D MMM YYYY') ;
 
   }
 
   prompting ()
   {
+
+    if (!this.interactive)
+    {
+      return ;
+    }
     
     return this.prompt
     (
@@ -35,29 +66,30 @@ module.exports = class extends Generator
           type: 'input',
           name: 'className',
           message: 'Class name:',
-          default: 'MyClass'
+          default: this.settings.className
         },
         {
           name: 'parentClassName',
           message: 'Inherits from:',
-          default: ''
+          default: this.settings.parentClassName
         },
         {
           name: 'folder',
           message: 'In folder (src/...):',
-          default: ''
+          default: this.settings.folder
         },
         {
           name: 'headerOnly',
           message: 'Header only?',
           type: 'confirm',
-          default: false
+          default: this.settings.headerOnly
         },
         {
           name: 'generateTest',
+          when: (answers) => { return this.config.get('buildTest') ; },
           message: 'Generate test?',
           type: 'confirm',
-          default: true
+          default: this.settings.generateTest
         }
       ]
     )
@@ -65,7 +97,13 @@ module.exports = class extends Generator
     (
       (answers) =>
       {
-        this.answers = answers ;
+        
+        this.settings.className = answers['className'] ;
+        this.settings.parentClassName = answers['parentClassName'] ;
+        this.settings.folder = answers['folder'] ;
+        this.settings.headerOnly = answers['headerOnly'] ;
+        this.settings.generateTest = answers['generateTest'] ;
+
       }
     ) ;
 
@@ -74,8 +112,8 @@ module.exports = class extends Generator
   configuring ()
   {
 
-    this.classNameLower = this.answers['className'].toLowerCase() ;
-    this.folder = (this.answers['folder'] == '') ? '' : (this.answers['folder'] + '/') ;
+    this.settings.classNameLower = this.settings.className.toLowerCase() ;
+    this.settings.folder = (this.settings.folder == '') ? '' : (this.settings.folder + '/') ;
     
   }
   
@@ -89,12 +127,12 @@ module.exports = class extends Generator
 
     this._generateHeader() ;
 
-    if (!this.answers['headerOnly'])
+    if (!this.settings.headerOnly)
     {
       this._generateSource() ;
     }
 
-    if (this.config.get('buildTest') && this.answers['generateTest'])
+    if (this.config.get('buildTest') && this.settings.generateTest)
     {
       this._generateTest() ;
     }
@@ -124,7 +162,7 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('include/MyClass.hpp'),
-      this.destinationPath('include/' + this.config.get('projectPath') + '/' + this.folder + this.answers['className'] + '.hpp'),
+      this.destinationPath('include/' + this.config.get('projectPath') + '/' + this.settings.folder + this.settings.className + '.hpp'),
       {
         year: this.year,
         date: this.date,
@@ -133,9 +171,9 @@ module.exports = class extends Generator
         authorName: this.config.get('authorName'),
         authorEmail: this.config.get('authorEmail'),
         companyName: this.config.get('companyName'),
-        className: this.answers['className'],
-        parentClassName: this.answers['parentClassName'],
-        folder: this.folder
+        className: this.settings.className,
+        parentClassName: this.settings.parentClassName,
+        folder: this.settings.folder
       }
     ) ;
 
@@ -147,7 +185,7 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('src/MyClass.cpp'),
-      this.destinationPath('src/' + this.config.get('projectPath') + '/' + this.folder + this.answers['className'] + '.cpp'),
+      this.destinationPath('src/' + this.config.get('projectPath') + '/' + this.settings.folder + this.settings.className + '.cpp'),
       {
         year: this.year,
         date: this.date,
@@ -156,9 +194,9 @@ module.exports = class extends Generator
         authorName: this.config.get('authorName'),
         authorEmail: this.config.get('authorEmail'),
         companyName: this.config.get('companyName'),
-        className: this.answers['className'],
-        parentClassName: this.answers['parentClassName'],
-        folder: this.folder
+        className: this.settings.className,
+        parentClassName: this.settings.parentClassName,
+        folder: this.settings.folder
       }
     ) ;
 
@@ -170,7 +208,7 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('test/MyClass.test.cpp'),
-      this.destinationPath('test/' + this.config.get('projectPath') + '/' + this.folder + this.answers['className'] + '.test.cpp'),
+      this.destinationPath('test/' + this.config.get('projectPath') + '/' + this.settings.folder + this.settings.className + '.test.cpp'),
       {
         year: this.year,
         date: this.date,
@@ -179,9 +217,9 @@ module.exports = class extends Generator
         authorName: this.config.get('authorName'),
         authorEmail: this.config.get('authorEmail'),
         companyName: this.config.get('companyName'),
-        className: this.answers['className'],
-        parentClassName: this.answers['parentClassName'],
-        folder: this.folder
+        className: this.settings.className,
+        parentClassName: this.settings.parentClassName,
+        folder: this.settings.folder
       }
     ) ;
 
