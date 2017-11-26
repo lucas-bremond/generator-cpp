@@ -32,28 +32,79 @@ To install the generator:
 npm install generator-cpp
 ```
 
-## Usage
+## Setup
 
-To create a new project:
+### Project
 
-```bash
-yo cpp # Interactive
-yo cpp --name "MyProject" --author "Bob Marley" --email "bob@marley.com" # Manual
-yo cpp --auto # Automatic (default values)
-```
-
-To create a new class:
+Create project interactively:
 
 ```bash
-yo cpp:class # Interactive
-yo cpp:class MyClass # Manual
-yo cpp:class --auto # Automatic (default values)
+yo cpp
 ```
 
-To display help:
+Create project manually:
+
+```bash
+yo cpp --name "MyProject" --author "Bob Marley" --email "bob@marley.com"
+```
+
+Create project automatically:
+
+```bash
+yo cpp --auto
+```
+
+### Class
+
+Create class interactively:
+
+```bash
+yo cpp:class
+```
+
+Create class manually:
+
+```bash
+yo cpp:class MyClass
+```
+
+Create class automatically:
+
+```bash
+yo cpp:class --auto
+```
+
+### Other
+
+Display help:
 
 ```bash
 yo cpp --help
+```
+
+## Build
+
+Both `CMake` (recommended) and `Autoconf` syntaxes are supported:
+
+```bash
+mkdir build && cd build
+cmake ..
+make
+```
+
+or...
+
+```bash
+./configure
+make
+```
+
+## Test
+
+The run all tests:
+
+```bash
+./bin/cpp-project.test
 ```
 
 ## Credits
