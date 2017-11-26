@@ -45,7 +45,7 @@ yo cpp
 To manually setup a project:
 
 ```bash
-yo cpp --name "MyProject" --author "Bob Marley" --email "bob@marley.com"
+yo cpp --name "C++ Project" --author "Bob Marley" --email "bob@marley.com"
 ```
 
 To automatically setup a project:
