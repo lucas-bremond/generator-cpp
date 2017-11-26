@@ -124,14 +124,6 @@ make install
 make uninstall
 ```
 
-## Test
-
-To run all tests:
-
-```bash
-./bin/cpp-project.test
-```
-
 ## Credits
 
 Big thanks to:
