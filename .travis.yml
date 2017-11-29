@@ -1,0 +1,49 @@
+language: cpp
+
+compiler:
+    - clang
+    - gcc
+
+os:
+    - linux
+
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - gcc-4.9
+            - g++-4.9
+            - cmake
+            - lcov
+            - expect
+
+before_script:
+    - $CC --version
+    - $CXX --version
+    - cmake --version
+    - gcov --version
+    - lcov --version
+
+before_install:
+    - |
+        if test "$TRAVIS_OS_NAME" == "osx"; then
+        brew update
+        brew install lcov
+        fi
+    - |
+        if test "$TRAVIS_OS_NAME" == "linux"; then
+            if test "$CXX" == "g++" ; then
+                sudo apt-get install -qq g++-4.8
+                export CXX="g++-4.8"
+            fi
+        fi
+
+script:
+    - npm link
+    - npm install -g yo
+    - mkdir testbuild && cd testbuild
+    - expect -f ../travis
+    - mkdir build && cd build
+    - cmake ..
+    - make VERBOSE=1
