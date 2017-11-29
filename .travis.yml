@@ -5,6 +5,7 @@ compiler:
     - gcc
 
 os:
+    - osx
     - linux
 
 addons:
