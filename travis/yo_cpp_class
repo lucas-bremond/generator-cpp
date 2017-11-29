@@ -1,0 +1,16 @@
+#!/usr/bin/expect
+
+spawn yo cpp:class
+
+expect "Class name:"
+send "MyTestClass\r"
+expect "Inherits from:"
+send "\r"
+expect "In folder (src/...):"
+send "\r"
+expect "Header only?"
+send "n\r"
+expect "Generate test?"
+send "y\r"
+
+expect eof

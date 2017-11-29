@@ -43,7 +43,9 @@ script:
     - npm link
     - npm install -g yo
     - mkdir testbuild && cd testbuild
-    - expect -f ../travis
+    - expect -f ../travis/yo_cpp
     - mkdir build && cd build
     - cmake ..
+    - make VERBOSE=1
+    - expect -f ../../travis/yo_cpp_class
     - make VERBOSE=1

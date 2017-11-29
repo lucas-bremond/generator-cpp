@@ -1,6 +1,7 @@
 #!/usr/bin/expect
 
 spawn yo cpp
+
 expect "Project name:"
 send "My Test Project\r"
 expect "Project description:"
