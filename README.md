@@ -2,6 +2,8 @@
 
 A [Yeoman](http://yeoman.io/) generator for C++ projects.
 
+[![Build Status](https://travis-ci.org/lucas-bremond/generator-cpp.svg?branch=master)](https://travis-ci.org/lucas-bremond/generator-cpp)
+
 | Feature           | Dependency  | Version |
 |-------------------|-------------|---------|
 | Source Control    | Git         | 2.13.3  |
