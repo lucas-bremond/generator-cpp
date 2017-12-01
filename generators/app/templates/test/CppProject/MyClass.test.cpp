@@ -1,27 +1,27 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///
-///	Copyright (C) 2017 by Company Inc.
+///	Copyright (C) <%= year %> by <%= companyName %>
 ///
-///	This file is part of the C++ Project project.
+///	This file is part of the <%= projectName %> project.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@file						CppProject/MyClass.test.cpp
-///	@author						Bob Marley <bob@marley.com>
-///	@date						1 Dec 2017
+///	@file						<%= projectPath %>/MyClass.test.cpp
+///	@author						<%= authorName %> <<%= authorEmail %>>
+///	@date						<%= date %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <Global.test.hpp>
 
-#include <CppProject/MyClass.hpp>
+#include <<%= projectPath %>/MyClass.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 TEST(CppProject_MyClass, DefaultConstructor)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     EXPECT_NO_THROW(MyClass()) ;
 
@@ -30,7 +30,7 @@ TEST(CppProject_MyClass, DefaultConstructor)
 TEST(CppProject_MyClass, Constructor)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     EXPECT_NO_THROW(MyClass(MyClass::MyEnum::First, 123, "Hello World!")) ;
 
@@ -39,7 +39,7 @@ TEST(CppProject_MyClass, Constructor)
 TEST(CppProject_MyClass, EqualToOperator)
 {
     
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     EXPECT_TRUE(MyClass() == MyClass()) ;
     EXPECT_TRUE(MyClass(MyClass::MyEnum::First, 123, "Hello World!") == MyClass(MyClass::MyEnum::First, 123, "Hello World!")) ;
@@ -53,7 +53,7 @@ TEST(CppProject_MyClass, EqualToOperator)
 TEST(CppProject_MyClass, StreamOperator)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     {
 
@@ -72,7 +72,7 @@ TEST(CppProject_MyClass, StreamOperator)
 TEST(CppProject_MyClass, IsDefined)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     {
 
@@ -95,7 +95,7 @@ TEST(CppProject_MyClass, IsDefined)
 TEST(CppProject_MyClass, GetInteger)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     {
 
@@ -118,7 +118,7 @@ TEST(CppProject_MyClass, GetInteger)
 TEST(CppProject_MyClass, SetInteger)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     {
 
@@ -149,7 +149,7 @@ TEST(CppProject_MyClass, SetInteger)
 TEST(CppProject_MyClass, DoSomething)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     {
 
@@ -176,7 +176,7 @@ TEST(CppProject_MyClass, DoSomething)
 TEST(CppProject_MyClass, PrintSomething)
 {
 
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     {
         
@@ -191,7 +191,7 @@ TEST(CppProject_MyClass, PrintSomething)
 TEST(CppProject_MyClass, Integer)
 {
     
-    using cppproject::MyClass ;
+    using <%= projectPath.toLowerCase() %>::MyClass ;
 
     {
 
