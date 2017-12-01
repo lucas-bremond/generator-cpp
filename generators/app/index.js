@@ -27,9 +27,9 @@ module.exports = class extends Generator
       buildStaticLib: false,
       buildUtility: true,
       buildTest: true,
-      buildCodeCoverage: true,
+      buildCodeCoverage: false,
       unitTestType: 'gtest',
-      buildDocumentation: true
+      buildDocumentation: false
     } ;
 
     this.interactive = true ;
