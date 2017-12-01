@@ -363,8 +363,7 @@ IF (BUILD_UNIT_TESTS)
 
         APPEND_COVERAGE_COMPILER_FLAGS ()
 
-        SET (COVERAGE_EXCLUDES  "${CMAKE_CURRENT_BINARY_DIR}/thirdparty/gtest/src/googletest/googletest/include/gtest/*"
-                                "${CMAKE_CURRENT_BINARY_DIR}/thirdparty/gtest/src/googletest/googletest/include/gtest/internal/*")
+        SET (COVERAGE_EXCLUDES "*.test.cpp" "*/include/gtest/*" "*/c++/v1/*")
 
         SETUP_TARGET_FOR_COVERAGE (
             NAME ${COVERAGE_TARGET}
