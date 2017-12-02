@@ -11,7 +11,7 @@ A [Yeoman](http://yeoman.io/) generator for C++ projects.
 | Source Control    | Git         | 2.13.3  |
 | Build & Packaging | CMake       | 2.8.12  |
 | Unit Testing      | GoogleTest  | 1.8.0   |
-| Code Coverage     | Lcov / Gcov | -       |
+| Code Coverage     | Lcov / Gcov | 1.13    |
 | Documentation     | Doxygen     | 1.8.13  |
 
 ## Dependencies

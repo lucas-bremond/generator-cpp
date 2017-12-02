@@ -21,15 +21,13 @@
 TEST(<%= projectPath %>_<%= folder.replace(/\//g, '_') %><%= className %>, Constructor)
 {
 
-	using <%= projectPath.toLowerCase() %>::<%= className %> ;
+    using <%= projectPath.toLowerCase() %>::<%= className %> ;
 
-	{
+    {
 
-		<%= className %> my<%= className %> ;
+        EXPECT_NO_THROW(<%= className %>()) ;
 
-		FAIL() ;
-
-	}
+    }
 
 }
 

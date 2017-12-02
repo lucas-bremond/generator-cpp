@@ -1,8 +1,10 @@
-cmake_minimum_required(VERSION 2.8.8)
+CMAKE_MINIMUM_REQUIRED (VERSION "2.8.8")
 
-project(doxygen_builder C CXX)
+CMAKE_POLICY (SET "CMP0048" NEW)
 
-include(ExternalProject)
+PROJECT ("doxygen_builder" VERSION "")
+
+INCLUDE (ExternalProject)
 
 ## ==============================================================================
 ##
@@ -34,7 +36,7 @@ option (DOXYGEN_FROM_REPOS     "Install package from repository?"         YES )
 ## Check if Doxygen is available
 
 if (NOT DOXYGEN_EXECUTABLE)
-  find_package (Doxygen)
+  find_package ("Doxygen" QUIET)
 endif (NOT DOXYGEN_EXECUTABLE)
 
 ## Check if Doxygen is available in a recent enough version

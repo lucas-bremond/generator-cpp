@@ -124,8 +124,10 @@ PROJECT (${PROJECT_NAME} VERSION ${PROJECT_VERSION_STRING} LANGUAGES "C" "CXX")
 
 SET (CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Limited Configs" FORCE)
 
-IF (NOT CMAKE_BUILD_TYPE)
-    SET (CMAKE_BUILD_TYPE Release CACHE STRING "Build type [None|Debug|Release|RelWithDebInfo|MinSizeRel]." FORCE)
+IF (BUILD_CODE_COVERAGE)
+    SET (CMAKE_BUILD_TYPE "Debug")
+ELSEIF (NOT CMAKE_BUILD_TYPE)
+    SET (CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type [None|Debug|Release|RelWithDebInfo|MinSizeRel]." FORCE)
 ENDIF ()
 
 ########################################################################################################################################################
@@ -264,6 +266,10 @@ IF (BUILD_SHARED_LIBRARY)
     FILE (GLOB_RECURSE SHARED_LIBRARY_HEADERS "${PROJECT_SOURCE_DIR}/include/${PROJECT_PATH}/*.hpp")
     FILE (GLOB_RECURSE SHARED_LIBRARY_SRCS "${PROJECT_SOURCE_DIR}/src/${PROJECT_PATH}/*.cpp")
 
+    IF (APPLE)
+        SET (CMAKE_MACOSX_RPATH ON)
+    ENDIF (APPLE)
+
     ADD_LIBRARY (${SHARED_LIBRARY_TARGET} SHARED ${SHARED_LIBRARY_SRCS})
 
     TARGET_INCLUDE_DIRECTORIES (${SHARED_LIBRARY_TARGET} PUBLIC "${PROJECT_SOURCE_DIR}/include/")
@@ -320,7 +326,7 @@ IF (BUILD_UNIT_TESTS)
 
     ADD_EXECUTABLE (${UNIT_TESTS_TARGET} ${TEST_SRCS})
 
-    FIND_PACKAGE ("GTest")
+    FIND_PACKAGE ("GTest" QUIET)
 
     IF (NOT GTEST_FOUND)
             
@@ -363,8 +369,7 @@ IF (BUILD_UNIT_TESTS)
 
         APPEND_COVERAGE_COMPILER_FLAGS ()
 
-        SET (COVERAGE_EXCLUDES  "${CMAKE_CURRENT_BINARY_DIR}/thirdparty/gtest/src/googletest/googletest/include/gtest/*"
-                                "${CMAKE_CURRENT_BINARY_DIR}/thirdparty/gtest/src/googletest/googletest/include/gtest/internal/*")
+        SET (COVERAGE_EXCLUDES "*.test.cpp" "*/include/gtest/*" "*/c++/v1/*" "/usr/*")
 
         SETUP_TARGET_FOR_COVERAGE (
             NAME ${COVERAGE_TARGET}
@@ -395,7 +400,7 @@ IF (BUILD_DOCUMENTATION)
     CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/tools/doxygen/doxygen-bootstrapped/addons/bootstrap/jquery.smartmenus.bootstrap.js" "${CMAKE_CURRENT_BINARY_DIR}/jquery.smartmenus.bootstrap.js" COPYONLY)
     CONFIGURE_FILE ("${PROJECT_SOURCE_DIR}/tools/doxygen/doxygen-bootstrapped/addons/bootstrap/jquery.smartmenus.bootstrap.css" "${CMAKE_CURRENT_BINARY_DIR}/jquery.smartmenus.bootstrap.css" COPYONLY)
 
-    FIND_PACKAGE ("Doxygen")
+    FIND_PACKAGE ("Doxygen" QUIET)
     
     IF (NOT DOXYGEN_FOUND)
             

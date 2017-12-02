@@ -50,14 +50,16 @@ script:
     - make VERBOSE=1
     - make test
     - expect -f ../../travis/yo_cpp_class
+    - cmake ..
     - make VERBOSE=1
     - make test
 
 after_success:
     # Creating report
+    - cmake -DBUILD_CODE_COVERAGE=ON ..
     - make coverage
     # Uploading report to CodeCov
-    - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+    - bash <(curl -s https://codecov.io/bash) -X gcov || echo "Codecov did not collect coverage reports"
 
 env:
     global:

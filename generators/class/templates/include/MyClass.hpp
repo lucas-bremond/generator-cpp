@@ -29,9 +29,9 @@ namespace <%= projectPath.toLowerCase() %>
 class <%= className %><%= parentClassName ? (' : public ' + parentClassName) : '' %>
 {
 
-	public:
+    public:
 
-		/// @brief				Default constructor
+        /// @brief				Default constructor
 
                                 <%= className %> () ;
 
@@ -54,7 +54,7 @@ class <%= className %><%= parentClassName ? (' : public ' + parentClassName) : '
 
     protected:
 
-	private:
+    private:
 
 } ;
 
