@@ -18,28 +18,28 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(CppProject_MyClass, DefaultConstructor)
+TEST(projectPath.replace(/\//g, '_')_MyClass, DefaultConstructor)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     EXPECT_NO_THROW(MyClass()) ;
 
 }
 
-TEST(CppProject_MyClass, Constructor)
+TEST(projectPath.replace(/\//g, '_')_MyClass, Constructor)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     EXPECT_NO_THROW(MyClass(MyClass::MyEnum::First, 123, "Hello World!")) ;
 
 }
 
-TEST(CppProject_MyClass, EqualToOperator)
+TEST(projectPath.replace(/\//g, '_')_MyClass, EqualToOperator)
 {
     
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     EXPECT_TRUE(MyClass() == MyClass()) ;
     EXPECT_TRUE(MyClass(MyClass::MyEnum::First, 123, "Hello World!") == MyClass(MyClass::MyEnum::First, 123, "Hello World!")) ;
@@ -50,10 +50,10 @@ TEST(CppProject_MyClass, EqualToOperator)
 
 }
 
-TEST(CppProject_MyClass, StreamOperator)
+TEST(projectPath.replace(/\//g, '_')_MyClass, StreamOperator)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     {
 
@@ -69,10 +69,10 @@ TEST(CppProject_MyClass, StreamOperator)
 
 }
 
-TEST(CppProject_MyClass, IsDefined)
+TEST(projectPath.replace(/\//g, '_')_MyClass, IsDefined)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     {
 
@@ -92,10 +92,10 @@ TEST(CppProject_MyClass, IsDefined)
 
 }
 
-TEST(CppProject_MyClass, GetInteger)
+TEST(projectPath.replace(/\//g, '_')_MyClass, GetInteger)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     {
 
@@ -115,10 +115,10 @@ TEST(CppProject_MyClass, GetInteger)
 
 }
 
-TEST(CppProject_MyClass, SetInteger)
+TEST(projectPath.replace(/\//g, '_')_MyClass, SetInteger)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     {
 
@@ -146,10 +146,10 @@ TEST(CppProject_MyClass, SetInteger)
 
 }
 
-TEST(CppProject_MyClass, DoSomething)
+TEST(projectPath.replace(/\//g, '_')_MyClass, DoSomething)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     {
 
@@ -173,10 +173,10 @@ TEST(CppProject_MyClass, DoSomething)
 
 }
 
-TEST(CppProject_MyClass, PrintSomething)
+TEST(projectPath.replace(/\//g, '_')_MyClass, PrintSomething)
 {
 
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     {
         
@@ -188,10 +188,10 @@ TEST(CppProject_MyClass, PrintSomething)
 
 }
 
-TEST(CppProject_MyClass, Integer)
+TEST(projectPath.replace(/\//g, '_')_MyClass, Integer)
 {
     
-    using <%= projectPath.toLowerCase() %>::MyClass ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
 
     {
 

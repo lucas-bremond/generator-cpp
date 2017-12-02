@@ -18,10 +18,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(<%= projectPath %>_<%= folder.replace(/\//g, '_') %><%= className %>, Constructor)
+TEST(<%= projectPath.replace(/\//g, '_') %>_<%= folder.replace(/\//g, '_') %><%= className %>, Constructor)
 {
 
-    using <%= projectPath.toLowerCase() %>::<%= className %> ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::<%= className %> ;
 
     {
 
