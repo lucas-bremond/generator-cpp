@@ -18,7 +18,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, DefaultConstructor)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, DefaultConstructor)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -27,7 +27,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, DefaultConstructor)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, Constructor)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, Constructor)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -36,7 +36,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, Constructor)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, EqualToOperator)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, EqualToOperator)
 {
     
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -50,7 +50,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, EqualToOperator)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, StreamOperator)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, StreamOperator)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -69,7 +69,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, StreamOperator)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, IsDefined)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, IsDefined)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -92,7 +92,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, IsDefined)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, GetInteger)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, GetInteger)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -115,7 +115,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, GetInteger)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, SetInteger)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, SetInteger)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -146,7 +146,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, SetInteger)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, DoSomething)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, DoSomething)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -173,7 +173,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, DoSomething)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, PrintSomething)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, PrintSomething)
 {
 
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
@@ -188,7 +188,7 @@ TEST(projectPath.replace(/\//g, '_')_MyClass, PrintSomething)
 
 }
 
-TEST(projectPath.replace(/\//g, '_')_MyClass, Integer)
+TEST(<%= projectPath.replace(/\//g, '_')_MyClass %>, Integer)
 {
     
     using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::MyClass ;
