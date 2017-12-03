@@ -11,34 +11,61 @@ module.exports = class extends Generator
     
     super (args, opts) ;
 
-    this.settings =
-    {
-      projectName: 'C++ Project',
-      projectDescription: 'A pretty cool C++ project.',
-      projectPath: 'CppProject',
-      projectPackage: 'cpp-project',
-      projectLicense: 'MIT License',
-      authorName: 'Bob Marley',
-      authorEmail: 'bob@marley.com',
-      companyName: 'Company Inc.',
-      companyId: 'com.company',
-      companyWebsite: 'www.company.com',
-      buildSharedLib: true,
-      buildStaticLib: false,
-      buildUtility: true,
-      buildTest: true,
-      unitTestType: 'gtest',
-      buildCodeCoverage: false,
-      buildDocumentation: false
-    } ;
+    this.config.getAll() ;
+
+    this.config.defaults
+    (
+      {
+        projectName: 'C++ Project',
+        projectDescription: 'A pretty cool C++ project.',
+        projectPath: 'CppProject',
+        projectPackage: 'cpp-project',
+        projectLicense: 'MIT License',
+        authorName: 'Bob Marley',
+        authorEmail: 'bob@marley.com',
+        companyName: 'Company Inc.',
+        companyId: 'com.company',
+        companyWebsite: 'www.company.com',
+        buildSharedLib: true,
+        buildStaticLib: false,
+        buildUtility: true,
+        buildTest: true,
+        unitTestType: 'gtest',
+        buildCodeCoverage: false,
+        buildDocumentation: false
+      }
+    ) ;
 
     this.interactive = true ;
 
-    this.option('auto') ;
+    this.option
+    (
+      'auto',
+      {
+        desc: 'Automatic mode',
+        type: Boolean,
+        default: false
+      }
+    ) ;
+    
+    this.option
+    (
+      'coverage',
+      {
+        desc: 'Enable code coverage',
+        type: Boolean,
+        default: false
+      }
+    ) ;
 
     if (this.options.auto)
     {
       this.interactive = false ;
+    }
+
+    if (this.options.coverage)
+    {
+      this.config.set('buildCodeCoverage', true) ;
     }
 
     this.argument('name', { type: String, required: false }) ;
@@ -47,21 +74,21 @@ module.exports = class extends Generator
 
     if (this.options.name)
     {
-      this.settings.projectName = this.options.name ;
-      this.settings.projectPath = this.options.name ;
-      this.settings.projectPackage = this.options.name ;
+      this.config.set('projectName', this.options.name) ;
+      this.config.set('projectPath', this.options.name) ;
+      this.config.set('projectPackage', this.options.name) ;
       this.interactive = false ;
     }
 
     if (this.options.author)
     {
-      this.settings.authorName = this.options.author ;
+      this.config.set('authorName', this.options.author) ;
       this.interactive = false ;
     }
 
     if (this.options.email)
     {
-      this.settings.authorEmail = this.options.email ;
+      this.config.set('authorEmail', this.options.email) ;
       this.interactive = false ;
     }
   
@@ -94,85 +121,85 @@ module.exports = class extends Generator
           type: 'input',
           name: 'projectName',
           message: 'Project name:',
-          default: this.settings.projectName
+          default: this.config.get('projectName')
         },
         {
           type: 'input',
           name: 'projectDescription',
           message: 'Project description:',
-          default: this.settings.projectDescription
+          default: this.config.get('projectDescription')
         },
         {
           type: 'input',
           name: 'projectPath',
           message: 'Project path:',
-          default: this.settings.projectPath
+          default: this.config.get('projectPath')
         },
         {
           type: 'input',
           name: 'projectPackage',
           message: 'Project package name:',
-          default: this.settings.projectPackage
+          default: this.config.get('projectPackage')
         },
         {
           type: 'input',
           name: 'projectLicense',
           message: 'Project license:',
-          default: this.settings.projectLicense
+          default: this.config.get('projectLicense')
         },
         {
           type: 'input',
           name: 'authorName',
           message: 'Author name:',
-          default: this.settings.authorName
+          default: this.config.get('authorName')
         },
         {
           type: 'input',
           name: 'authorEmail',
           message: 'Author e-mail:',
-          default: this.settings.authorEmail
+          default: this.config.get('authorEmail')
         },
         {
           type: 'input',
           name: 'companyName',
           message: 'Company name:',
-          default: this.settings.companyName
+          default: this.config.get('companyName')
         },
         {
           type: 'input',
           name: 'companyId',
           message: 'Company ID:',
-          default: this.settings.companyId
+          default: this.config.get('companyId')
         },
         {
           type: 'input',
           name: 'companyWebsite',
           message: 'Company website:',
-          default: this.settings.companyWebsite
+          default: this.config.get('companyWebsite')
         },
         {
           type: 'confirm',
           name: 'buildSharedLib',
           message: 'Would you like to build a shared library?',
-          default: this.settings.buildSharedLib
+          default: this.config.get('buildSharedLib')
         },
         {
           type: 'confirm',
           name: 'buildStaticLib',
           message: 'Would you like to build a static library?',
-          default: this.settings.buildStaticLib
+          default: this.config.get('buildStaticLib')
         },
         {
           type: 'confirm',
           name: 'buildUtility',
           message: 'Would you like to build a utility?',
-          default: this.settings.buildUtility
+          default: this.config.get('buildUtility')
         },
         {
           type: 'confirm',
           name: 'buildTest',
           message: 'Would you like to build the unit tests?',
-          default: this.settings.buildTest
+          default: this.config.get('buildTest')
         },
         {
           type: 'list',
@@ -190,20 +217,20 @@ module.exports = class extends Generator
             //   value: 'catch'
             // }
           ],
-          default: this.settings.unitTestType
+          default: this.config.get('unitTestType')
         },
         {
           type: 'confirm',
           when: (answers) => { return answers.buildTest ; },
           name: 'buildCodeCoverage',
           message: 'Would you like to run the code coverage analysis?',
-          default: this.settings.buildCodeCoverage
+          default: this.config.get('buildCodeCoverage')
         },
         {
           type: 'confirm',
           name: 'buildDocumentation',
           message: 'Would you like to build the documentation?',
-          default: this.settings.buildDocumentation
+          default: this.config.get('buildDocumentation')
         }
       ]
     )
@@ -212,23 +239,23 @@ module.exports = class extends Generator
       (answers) =>
       {
         
-        this.settings.projectName = answers['projectName'] ;
-        this.settings.projectDescription = answers['projectDescription'] ;
-        this.settings.projectPath = answers['projectPath'] ;
-        this.settings.projectPackage = answers['projectPackage'] ;
-        this.settings.projectLicense = answers['projectLicense'] ;
-        this.settings.authorName = answers['authorName'] ;
-        this.settings.authorEmail = answers['authorEmail'] ;
-        this.settings.companyName = answers['companyName'] ;
-        this.settings.companyId = answers['companyId'] ;
-        this.settings.companyWebsite = answers['companyWebsite'] ;
-        this.settings.buildSharedLib = answers['buildSharedLib'] ;
-        this.settings.buildStaticLib = answers['buildStaticLib'] ;
-        this.settings.buildUtility = answers['buildUtility'] ;
-        this.settings.buildTest = answers['buildTest'] ;
-        this.settings.unitTestType = answers['unitTestType'] ;
-        this.settings.buildCodeCoverage = answers['buildCodeCoverage'] ;
-        this.settings.buildDocumentation = answers['buildDocumentation'] ;
+        this.config.set('projectName', answers['projectName']) ;
+        this.config.set('projectDescription', answers['projectDescription']) ;
+        this.config.set('projectPath', answers['projectPath']) ;
+        this.config.set('projectPackage', answers['projectPackage']) ;
+        this.config.set('projectLicense', answers['projectLicense']) ;
+        this.config.set('authorName', answers['authorName']) ;
+        this.config.set('authorEmail', answers['authorEmail']) ;
+        this.config.set('companyName', answers['companyName']) ;
+        this.config.set('companyId', answers['companyId']) ;
+        this.config.set('companyWebsite', answers['companyWebsite']) ;
+        this.config.set('buildSharedLib', answers['buildSharedLib']) ;
+        this.config.set('buildStaticLib', answers['buildStaticLib']) ;
+        this.config.set('buildUtility', answers['buildUtility']) ;
+        this.config.set('buildTest', answers['buildTest']) ;
+        this.config.set('unitTestType', answers['unitTestType']) ;
+        this.config.set('buildCodeCoverage', answers['buildCodeCoverage']) ;
+        this.config.set('buildDocumentation', answers['buildDocumentation']) ;
         
       }
     ) ;
@@ -252,22 +279,22 @@ module.exports = class extends Generator
     this._setupBuild() ;
     this._setupSrc() ;
 
-    if (this.settings.buildUtility)
+    if (this.config.get('buildUtility'))
     {
       this._setupUtility() ;
     }
 
-    if (this.settings.buildTest)
+    if (this.config.get('buildTest'))
     {
       this._setupTest() ;
     }
 
-    if (this.settings.buildCodeCoverage)
+    if (this.config.get('buildCodeCoverage'))
     {
       this._setupCodeCoverage() ;
     }
 
-    if (this.settings.buildDocumentation)
+    if (this.config.get('buildDocumentation'))
     {
       this._setupDocumentation() ;
     }
@@ -286,7 +313,7 @@ module.exports = class extends Generator
   
   end ()
   {
-    this.config.set(this.settings) ;
+    this.config.save() ;
   }
 
   // Private methods
@@ -301,11 +328,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -323,11 +350,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -338,22 +365,22 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectDescription: this.settings.projectDescription,
-        projectPath: this.settings.projectPath,
-        projectPackage: this.settings.projectPackage,
-        projectLicense: this.settings.projectLicense,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName,
-        companyId: this.settings.companyId,
-        companyWebsite: this.settings.companyWebsite,
-        buildSharedLib: this.settings.buildSharedLib,
-        buildStaticLib: this.settings.buildStaticLib,
-        buildUtility: this.settings.buildUtility,
-        buildTest: this.settings.buildTest,
-        buildCodeCoverage: this.settings.buildCodeCoverage,
-        buildDocumentation: this.settings.buildDocumentation
+        projectName: this.config.get('projectName'),
+        projectDescription: this.config.get('projectDescription'),
+        projectPath: this.config.get('projectPath'),
+        projectPackage: this.config.get('projectPackage'),
+        projectLicense: this.config.get('projectLicense'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName'),
+        companyId: this.config.get('companyId'),
+        companyWebsite: this.config.get('companyWebsite'),
+        buildSharedLib: this.config.get('buildSharedLib'),
+        buildStaticLib: this.config.get('buildStaticLib'),
+        buildUtility: this.config.get('buildUtility'),
+        buildTest: this.config.get('buildTest'),
+        buildCodeCoverage: this.config.get('buildCodeCoverage'),
+        buildDocumentation: this.config.get('buildDocumentation')
       }
     ) ;
     
@@ -364,11 +391,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -379,11 +406,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -398,39 +425,39 @@ module.exports = class extends Generator
       this.templatePath('README.md'),
       this.destinationPath('README.md'),
       {
-        projectName: this.settings.projectName,
-        projectDescription: this.settings.projectDescription
+        projectName: this.config.get('projectName'),
+        projectDescription: this.config.get('projectDescription')
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('tools/cmake/CppProjectConfig.cmake.in'),
-      this.destinationPath('tools/cmake/' + this.settings.projectPath + 'Config.cmake.in'),
+      this.destinationPath('tools/cmake/' + this.config.get('projectPath') + 'Config.cmake.in'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        projectPackage: this.settings.projectPackage,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        projectPackage: this.config.get('projectPackage'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('tools/cmake/CppProjectConfigVersion.cmake.in'),
-      this.destinationPath('tools/cmake/' + this.settings.projectPath + 'ConfigVersion.cmake.in'),
+      this.destinationPath('tools/cmake/' + this.config.get('projectPath') + 'ConfigVersion.cmake.in'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -453,11 +480,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -481,30 +508,30 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('include/CppProject/MyClass.hpp'),
-      this.destinationPath('include/' + this.settings.projectPath + '/MyClass.hpp'),
+      this.destinationPath('include/' + this.config.get('projectPath') + '/MyClass.hpp'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('src/CppProject/MyClass.cpp'),
-      this.destinationPath('src/' + this.settings.projectPath + '/MyClass.cpp'),
+      this.destinationPath('src/' + this.config.get('projectPath') + '/MyClass.cpp'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -520,11 +547,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -535,21 +562,21 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectDescription: this.settings.projectDescription,
-        projectPath: this.settings.projectPath,
-        projectPackage: this.settings.projectPackage,
-        projectLicense: this.settings.projectLicense,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName,
-        companyId: this.settings.companyId,
-        companyWebsite: this.settings.companyWebsite,
-        buildSharedLib: this.settings.buildSharedLib,
-        buildStaticLib: this.settings.buildStaticLib,
-        buildUtility: this.settings.buildUtility,
-        buildTest: this.settings.buildTest,
-        buildDocumentation: this.settings.buildDocumentation
+        projectName: this.config.get('projectName'),
+        projectDescription: this.config.get('projectDescription'),
+        projectPath: this.config.get('projectPath'),
+        projectPackage: this.config.get('projectPackage'),
+        projectLicense: this.config.get('projectLicense'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName'),
+        companyId: this.config.get('companyId'),
+        companyWebsite: this.config.get('companyWebsite'),
+        buildSharedLib: this.config.get('buildSharedLib'),
+        buildStaticLib: this.config.get('buildStaticLib'),
+        buildUtility: this.config.get('buildUtility'),
+        buildTest: this.config.get('buildTest'),
+        buildDocumentation: this.config.get('buildDocumentation')
       }
     ) ;
 
@@ -577,11 +604,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -592,11 +619,11 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
@@ -607,26 +634,26 @@ module.exports = class extends Generator
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 
     this.fs.copyTpl
     (
       this.templatePath('test/CppProject/MyClass.test.cpp'),
-      this.destinationPath('test/' + this.settings.projectPath + '/MyClass.test.cpp'),
+      this.destinationPath('test/' + this.config.get('projectPath') + '/MyClass.test.cpp'),
       {
         year: this.year,
         date: this.date,
-        projectName: this.settings.projectName,
-        projectPath: this.settings.projectPath,
-        authorName: this.settings.authorName,
-        authorEmail: this.settings.authorEmail,
-        companyName: this.settings.companyName
+        projectName: this.config.get('projectName'),
+        projectPath: this.config.get('projectPath'),
+        authorName: this.config.get('authorName'),
+        authorEmail: this.config.get('authorEmail'),
+        companyName: this.config.get('companyName')
       }
     ) ;
 

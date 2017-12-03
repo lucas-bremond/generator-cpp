@@ -11,18 +11,30 @@ module.exports = class extends Generator
     
     super (args, opts) ;
 
-    this.settings =
-    {
-      className: 'MyNewClass',
-      parentClassName: '',
-      folder: '',
-      headerOnly: false,
-      generateTest: true
-    } ;
+    this.config.getAll() ;
+
+    this.config.defaults
+    (
+      {
+        className: 'MyNewClass',
+        parentClassName: '',
+        folder: '',
+        headerOnly: false,
+        generateTest: true
+      }
+    ) ;
 
     this.interactive = true ;
 
-    this.option('auto') ;
+    this.option
+    (
+      'auto',
+      {
+        desc: 'Automatic mode',
+        type: Boolean,
+        default: false
+      }
+    ) ;
 
     if (this.options.auto)
     {
@@ -33,7 +45,7 @@ module.exports = class extends Generator
 
     if (this.options.name)
     {
-      this.settings.className = this.options.name ;
+      this.config.set('className', this.options.name) ;
       this.interactive = false ;
     }
   
@@ -66,30 +78,30 @@ module.exports = class extends Generator
           type: 'input',
           name: 'className',
           message: 'Class name:',
-          default: this.settings.className
+          default: this.config.get('className')
         },
         {
           name: 'parentClassName',
           message: 'Inherits from:',
-          default: this.settings.parentClassName
+          default: this.config.get('parentClassName')
         },
         {
           name: 'folder',
           message: 'In folder (src/...):',
-          default: this.settings.folder
+          default: this.config.get('folder')
         },
         {
           name: 'headerOnly',
           message: 'Header only?',
           type: 'confirm',
-          default: this.settings.headerOnly
+          default: this.config.get('headerOnly')
         },
         {
           name: 'generateTest',
           when: (answers) => { return this.config.get('buildTest') ; },
           message: 'Generate test?',
           type: 'confirm',
-          default: this.settings.generateTest
+          default: this.config.get('generateTest')
         }
       ]
     )
@@ -98,11 +110,11 @@ module.exports = class extends Generator
       (answers) =>
       {
         
-        this.settings.className = answers['className'] ;
-        this.settings.parentClassName = answers['parentClassName'] ;
-        this.settings.folder = answers['folder'] ;
-        this.settings.headerOnly = answers['headerOnly'] ;
-        this.settings.generateTest = answers['generateTest'] ;
+        this.config.set('className', answers['className']) ;
+        this.config.set('parentClassName', answers['parentClassName']) ;
+        this.config.set('folder', answers['folder']) ;
+        this.config.set('headerOnly', answers['headerOnly']) ;
+        this.config.set('generateTest', answers['generateTest']) ;
 
       }
     ) ;
@@ -112,8 +124,8 @@ module.exports = class extends Generator
   configuring ()
   {
 
-    this.settings.classNameLower = this.settings.className.toLowerCase() ;
-    this.settings.folder = (this.settings.folder == '') ? '' : (this.settings.folder + '/') ;
+    this.config.set('classNameLower', this.config.get('className').toLowerCase()) ;
+    this.config.set('folder', (this.config.get('folder') == '') ? '' : (this.config.get('folder') + '/')) ;
     
   }
   
@@ -127,12 +139,12 @@ module.exports = class extends Generator
 
     this._generateHeader() ;
 
-    if (!this.settings.headerOnly)
+    if (!this.config.get('headerOnly'))
     {
       this._generateSource() ;
     }
 
-    if (this.config.get('buildTest') && this.settings.generateTest)
+    if (this.config.get('buildTest') && this.config.get('generateTest'))
     {
       this._generateTest() ;
     }
@@ -151,7 +163,7 @@ module.exports = class extends Generator
   
   end ()
   {
-    
+    this.config.save() ;
   }
 
   // Private methods
@@ -162,7 +174,7 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('include/MyClass.hpp'),
-      this.destinationPath('include/' + this.config.get('projectPath') + '/' + this.settings.folder + this.settings.className + '.hpp'),
+      this.destinationPath('include/' + this.config.get('projectPath') + '/' + this.config.get('folder') + this.config.get('className') + '.hpp'),
       {
         year: this.year,
         date: this.date,
@@ -171,9 +183,9 @@ module.exports = class extends Generator
         authorName: this.config.get('authorName'),
         authorEmail: this.config.get('authorEmail'),
         companyName: this.config.get('companyName'),
-        className: this.settings.className,
-        parentClassName: this.settings.parentClassName,
-        folder: this.settings.folder
+        className: this.config.get('className'),
+        parentClassName: this.config.get('parentClassName'),
+        folder: this.config.get('folder')
       }
     ) ;
 
@@ -185,7 +197,7 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('src/MyClass.cpp'),
-      this.destinationPath('src/' + this.config.get('projectPath') + '/' + this.settings.folder + this.settings.className + '.cpp'),
+      this.destinationPath('src/' + this.config.get('projectPath') + '/' + this.config.get('folder') + this.config.get('className') + '.cpp'),
       {
         year: this.year,
         date: this.date,
@@ -194,9 +206,9 @@ module.exports = class extends Generator
         authorName: this.config.get('authorName'),
         authorEmail: this.config.get('authorEmail'),
         companyName: this.config.get('companyName'),
-        className: this.settings.className,
-        parentClassName: this.settings.parentClassName,
-        folder: this.settings.folder
+        className: this.config.get('className'),
+        parentClassName: this.config.get('parentClassName'),
+        folder: this.config.get('folder')
       }
     ) ;
 
@@ -208,7 +220,7 @@ module.exports = class extends Generator
     this.fs.copyTpl
     (
       this.templatePath('test/MyClass.test.cpp'),
-      this.destinationPath('test/' + this.config.get('projectPath') + '/' + this.settings.folder + this.settings.className + '.test.cpp'),
+      this.destinationPath('test/' + this.config.get('projectPath') + '/' + this.config.get('folder') + this.config.get('className') + '.test.cpp'),
       {
         year: this.year,
         date: this.date,
@@ -217,9 +229,9 @@ module.exports = class extends Generator
         authorName: this.config.get('authorName'),
         authorEmail: this.config.get('authorEmail'),
         companyName: this.config.get('companyName'),
-        className: this.settings.className,
-        parentClassName: this.settings.parentClassName,
-        folder: this.settings.folder
+        className: this.config.get('className'),
+        parentClassName: this.config.get('parentClassName'),
+        folder: this.config.get('folder')
       }
     ) ;
 

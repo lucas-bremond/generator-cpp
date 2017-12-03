@@ -52,10 +52,23 @@ To manually setup a project:
 yo cpp --name "C++ Project" --author "Bob Marley" --email "bob@marley.com"
 ```
 
+Available options are:
+
+- `--name "C++ Project"`
+- `--author "Bob Marley"`
+- `--email "bob@marley.com"`
+- `--coverage`
+
 To automatically setup a project:
 
 ```bash
 yo cpp --auto
+```
+
+Note that automatic and manual modes can be used together:
+
+```bash
+yo cpp --auto --name "C++ Project" --coverage
 ```
 
 ### Class
