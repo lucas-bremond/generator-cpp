@@ -59,7 +59,7 @@ after_success:
     - cmake -DBUILD_CODE_COVERAGE=ON ..
     - make coverage
     # Uploading report to CodeCov
-    - bash <(curl -s https://codecov.io/bash) -X gcov || echo "Codecov did not collect coverage reports"
+    - bash <(curl -s https://codecov.io/bash) -X gcov -y ../../.codecov.yml || echo "Codecov did not collect coverage reports"
 
 env:
     global:
