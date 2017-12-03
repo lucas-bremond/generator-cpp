@@ -18,14 +18,46 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TEST(<%= projectPath %>_<%= folder.replace(/\//g, '_') %><%= className %>, Constructor)
+TEST(<%= projectPath.replace(/\//g, '_') %>_<%= folder.replace(/\//g, '_') %><%= className %>, Constructor)
 {
 
-    using <%= projectPath.toLowerCase() %>::<%= className %> ;
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::<%= className %> ;
 
     {
 
         EXPECT_NO_THROW(<%= className %>()) ;
+
+    }
+
+}
+
+TEST(<%= projectPath.replace(/\//g, '_') %>_<%= folder.replace(/\//g, '_') %><%= className %>, CopyConstructor)
+{
+
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::<%= className %> ;
+
+    {
+
+        <%= className %> original ;
+
+        EXPECT_NO_THROW(<%= className %> copy(original)) ;
+
+    }
+
+}
+
+TEST(<%= projectPath.replace(/\//g, '_') %>_<%= folder.replace(/\//g, '_') %><%= className %>, AssignmentOperator)
+{
+
+    using <%= projectPath.toLowerCase().replace(/\//g, '_') %>::<%= className %> ;
+
+    {
+
+        <%= className %> original ;
+
+        <%= className %> copy ;
+
+        EXPECT_NO_THROW(copy = original) ;
 
     }
 
