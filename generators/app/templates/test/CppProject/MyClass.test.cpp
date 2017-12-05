@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///
-///	Copyright (C) <%= year %> by <%= companyName %>
+/// Copyright (C) <%= year %> by <%= companyName %>
 ///
-///	This file is part of the <%= projectName %> project.
+/// This file is part of the <%= projectName %> project.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@file						<%= projectPath %>/MyClass.test.cpp
-///	@author						<%= authorName %> <<%= authorEmail %>>
-///	@date						<%= date %>
+/// @file                       <%= projectPath %>/MyClass.test.cpp
+/// @author                     <%= authorName %> <<%= authorEmail %>>
+/// @date                       <%= date %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,7 +57,7 @@ TEST(<%= projectPath.replace(/\//g, '_') %>_MyClass, StreamOperator)
 
     {
 
-        std::stringstream		stringStream ;
+        std::stringstream        stringStream ;
 
         MyClass myClass ;
 

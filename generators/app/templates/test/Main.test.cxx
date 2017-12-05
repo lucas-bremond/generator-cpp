@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///
-///	Copyright (C) <%= year %> by <%= companyName %>
+/// Copyright (C) <%= year %> by <%= companyName %>
 ///
-///	This file is part of the <%= projectName %> project.
+/// This file is part of the <%= projectName %> project.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@file						<%= projectPath %>/Main.test.cxx
-///	@author						<%= authorName %> <<%= authorEmail %>>
-///	@date						<%= date %>
+/// @file                       <%= projectPath %>/Main.test.cxx
+/// @author                     <%= authorName %> <<%= authorEmail %>>
+/// @date                       <%= date %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,15 +16,15 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int 							main 										(			int							argc,
-																						char**						argv								)
+int                             main										(           int                         argc,
+                                                                                        char**                      argv                                )
 {
 
-	::testing::InitGoogleTest(&argc, argv) ;
+    ::testing::InitGoogleTest(&argc, argv) ;
 
-	::testing::AddGlobalTestEnvironment(new <%= projectPath.toLowerCase() %>::test::Environment(argc >= 2 ? argv[1] : "")) ;
-	
-	return RUN_ALL_TESTS() ;
+    ::testing::AddGlobalTestEnvironment(new <%= projectPath.toLowerCase() %>::test::Environment(argc >= 2 ? argv[1] : "")) ;
+    
+    return RUN_ALL_TESTS() ;
 
 }
 
