@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///
-///	Copyright (C) <%= year %> by <%= companyName %>
+/// Copyright (C) <%= year %> by <%= companyName %>
 ///
-///	This file is part of the <%= projectName %> project.
+/// This file is part of the <%= projectName %> project.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@file						<%= projectPath %>/<%= folder %><%= className %>.hpp
-///	@author						<%= authorName %> <<%= authorEmail %>>
-///	@date						<%= date %>
+/// @file                       <%= projectPath %>/<%= folder %><%= className %>.hpp
+/// @author                     <%= authorName %> <<%= authorEmail %>>
+/// @date                       <%= date %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -22,26 +22,26 @@ namespace <%= projectPath.toLowerCase().replace(/\//g, '_') %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@brief						A <%= className %> class
+/// @brief                      A <%= className %> class
 ///
-///								This is a class.
+///                             This is a class.
 
 class <%= className %><%= parentClassName ? (' : public ' + parentClassName) : '' %>
 {
 
     public:
 
-        /// @brief				Default constructor
+        /// @brief              Default constructor
 
                                 <%= className %> () ;
 
-        /// @brief				Copy constructor
+        /// @brief              Copy constructor
         ///
         /// @param              [in] a<%= className %>Class A <%= className %> class
 
                                 <%= className %> (const <%= className %>& a<%= className %>Class) ;
 
-         /// @brief				Destructor
+         /// @brief             Destructor
 
                                 ~<%= className %> () ;
 

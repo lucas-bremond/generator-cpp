@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///
-///	Copyright (C) <%= year %> by <%= companyName %>
+/// Copyright (C) <%= year %> by <%= companyName %>
 ///
-///	This file is part of the <%= projectName %> project.
+/// This file is part of the <%= projectName %> project.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@file						<%= projectPath %>/MyClass.hpp
-///	@author						<%= authorName %> <<%= authorEmail %>>
-///	@date						<%= date %>
+/// @file                       <%= projectPath %>/MyClass.hpp
+/// @author                     <%= authorName %> <<%= authorEmail %>>
+/// @date                       <%= date %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -25,16 +25,16 @@ namespace <%= projectPath.toLowerCase().replace(/\//g, '_') %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@brief						A MyClass class
+/// @brief                      A MyClass class
 ///
-///								This is a class.
+///                             This is a class.
 
 class MyClass
 {
 
     public:
 
-        /// @brief				A MyEnum enum
+        /// @brief              A MyEnum enum
 
         enum class MyEnum
         {
@@ -44,82 +44,82 @@ class MyClass
         
         } ;
 
-        /// @brief				A MyType type
+        /// @brief              A MyType type
 
         typedef int MyType ;
 
-        /// @brief				Default constructor
+        /// @brief              Default constructor
 
-                                MyClass										( ) ;
+                                MyClass                                        ( ) ;
 
-        /// @brief				A constructor
+        /// @brief              A constructor
         ///
-        /// @param				[in] anEnum An enum
-        /// @param				[in] anInteger An integer
-        /// @param				[in] aString A string
+        /// @param              [in] anEnum An enum
+        /// @param              [in] anInteger An integer
+        /// @param              [in] aString A string
 
-                                MyClass										(	const	MyClass::MyEnum&			anEnum,
-                                                                                const	int&						anInteger,
-                                                                                const	std::string&				aString								) ;
+                                MyClass                                    (    const   MyClass::MyEnum&            anEnum,
+                                                                                const   int&                        anInteger,
+                                                                                const   std::string&                aString                             ) ;
 
-        /// @brief				Operators
+        /// @brief              Operators
         ///
-        /// @param				[in] aMyClass A MyClass instance
-        /// @return				True if equal
+        /// @param              [in] aMyClass A MyClass instance
+        /// @return             True if equal
 
-        bool					operator ==									(	const	MyClass&					aMyClass							) const ;
+        bool                    operator ==                                (    const   MyClass&                    aMyClass                            ) const ;
 
-        /// @brief				Stream operator
+        /// @brief              Stream operator
         ///
-        /// @param				[in] anOutputStream A stream
-        /// @param				[in] aMyClass A MyClass instance
-        /// @return				A stream reference
+        /// @param              [in] anOutputStream A stream
+        /// @param              [in] aMyClass A MyClass instance
+        /// @return             A stream reference
 
-        friend std::ostream&	operator <<									(			std::ostream&				anOutputStream,
-                                                                                const	MyClass&					aMyClass							) ;
+        friend std::ostream&    operator <<                                (            std::ostream&               anOutputStream,
+                                                                                const   MyClass&                    aMyClass                            ) ;
 
-        /// @brief				Testers
+        /// @brief              Testers
         ///
-        /// @return				True if defined
+        /// @return             True if defined
 
-        bool					isDefined									( ) const ;
+        bool                    isDefined                                   ( ) const ;
 
-        /// @brief				Getters
+        /// @brief              Getters
         ///
-        /// @return				Integer
+        /// @return             Integer
 
-        int						getInteger									( ) const ;
+        int                     getInteger                                  ( ) const ;
 
-        /// @brief				Setters
+        /// @brief              Setters
         ///
-        /// @param				[in] anInteger An integer
+        /// @param              [in] anInteger An integer
 
-        void					setInteger									(	const	int&						anInteger							) ;
+        void                    setInteger                                  (   const   int&                        anInteger                           ) ;
 
-        /// @brief				A public method
+        /// @brief              A public method
 
-        void					doSomething									( ) ;
+        void                    doSomething                                 ( ) ;
 
-        /// @brief				Another public method
+        /// @brief              Another public method
 
-        void					printSomething								( ) ;
+        void                    printSomething                              ( ) ;
 
-        /// @brief				A named constructor
+        /// @brief              A named constructor
         ///
-        /// @param				[in] anInteger An integer
-        /// @return				A MyClass instance
+        /// @param              [in] anInteger An integer
+        /// @return             A MyClass instance
 
-        static MyClass			Integer										(	const	int&						anInteger							) ;
+        static MyClass          Integer                                     (   const   int&                        anInteger                           ) ;
 
     private:
 
-        MyClass::MyEnum			enum_ ; ///< An enum
-        int						integer_ ; ///< An integer
-        std::string				string_ ; ///< A string
+        MyClass::MyEnum         enum_ ; ///< An enum
+        int                     integer_ ; ///< An integer
+        std::string             string_ ; ///< A string
 
-        /// @brief				A private method
+        /// @brief              A private method
 
-        void					doSomethingPrivate							( ) ;
+        void                    doSomethingPrivate                          ( ) ;
 
 } ;
 

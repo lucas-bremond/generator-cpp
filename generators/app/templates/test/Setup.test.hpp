@@ -1,14 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///
-///	Copyright (C) <%= year %> by <%= companyName %>
+/// Copyright (C) <%= year %> by <%= companyName %>
 ///
-///	This file is part of the <%= projectName %> project.
+/// This file is part of the <%= projectName %> project.
 ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///	@file						<%= projectPath %>/Setup.test.hpp
-///	@author						<%= authorName %> <<%= authorEmail %>>
-///	@date						<%= date %>
+/// @file                       <%= projectPath %>/Setup.test.hpp
+/// @author                     <%= authorName %> <<%= authorEmail %>>
+/// @date                       <%= date %>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@ namespace global
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-std::string						someGlobalString ;
+std::string                     someGlobalString ;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -39,41 +39,41 @@ std::string						someGlobalString ;
 class Environment : public testing::Environment
 {
 
-	public:
+    public:
 
-								Environment									(	const	std::string&				aCommandLineArg						)
-								:	commandLineArg_(aCommandLineArg)
-		{
+                                Environment									(   const   std::string&                aCommandLineArg                     )
+                                :	commandLineArg_(aCommandLineArg)
+        {
 
-			if (commandLineArg_ != "")
-			{
-				global::someGlobalString										=		commandLineArg_ ;
-			}
-			else
-			{
-				global::someGlobalString										=		"World" ;
-			}
-			
-		}
+            if (commandLineArg_ != "")
+            {
+                global::someGlobalString = commandLineArg_ ;
+            }
+            else
+            {
+                global::someGlobalString = "World" ;
+            }
+            
+        }
 
-		virtual					~Environment								( )
-		{
+        virtual                 ~Environment                                ( )
+        {
 
-		}
-		
-		virtual void			SetUp										( )
-		{
+        }
+        
+        virtual void            SetUp										( )
+        {
 
-		}
-		
-		virtual void			TearDown									( )
-		{
+        }
+        
+        virtual void            TearDown                                    ( )
+        {
 
-		}
+        }
 
-	private:
+    private:
 
-		std::string				commandLineArg_ ;
+        std::string             commandLineArg_ ;
 
 } ;
 
